@@ -1,0 +1,107 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="AppKW.Views.Buzon"
+             xmlns:vm="clr-namespace:AppKW.ViewModels"
+             Title="{Binding Title}"
+             BackgroundColor="{StaticResource Second}">
+
+    <ContentPage.BindingContext>
+        <vm:BuzonViewModel/>
+    </ContentPage.BindingContext>
+
+    <ContentPage.Content> 
+        <StackLayout Padding="0">
+            <Grid>
+                <StackLayout Margin="15, 15, 15, 0">
+                    <Frame BackgroundColor="#e1e2e1" BorderColor="#f5f5f6" HasShadow="True" HeightRequest="600" HorizontalOptions="FillAndExpand">
+                        <ScrollView>
+                            <StackLayout>
+                                <StackLayout HorizontalOptions="CenterAndExpand">
+                                    <Label Text="FORMULARIO DE QUEJA O RECLAMACIÓN" 
+                                       TextColor="Black" 
+                                       FontFamily="Titulo"
+                                       FontSize="Title"
+                                       FontAttributes="Bold"
+                                       HorizontalTextAlignment="Center">
+                                    </Label>
+                                    <Label Text="Ponemos a su disposición este documento, que debe rellenar si ha tenido algún incidente con nuestra empresa. 
+                                       Gracias de antemano por contribuir a la mejora de nuestros servicios." 
+                                       TextColor="Black" 
+                                       FontFamily="Texto"
+                                       FontSize="Header"
+                                       HorizontalTextAlignment="Center"/>
+                                </StackLayout>
+                                <StackLayout Margin="0, 25, 0, 0">
+                                    <Label Text="Ingresa tu nombre completo" TextColor="Black" FontSize="18" FontAttributes="Bold"/>
+                                    <Frame BackgroundColor="#31FFFFFF" Padding="0" Margin="0" CornerRadius="0"  HorizontalOptions="FillAndExpand">
+                                        <StackLayout Orientation="Horizontal">
+                                            <Entry x:Name="TxtNombre" 
+                                               TextColor="Black" 
+                                               FontSize="16"
+                                               HorizontalOptions="FillAndExpand" 
+                                               Margin="0, 0, 15, 0"></Entry>
+                                        </StackLayout>
+                                    </Frame>
+                                    <Label Text="Ingresa a que compañia perteneces" TextColor="Black" FontSize="18" FontAttributes="Bold"/>
+                                    <Frame BackgroundColor="#31FFFFFF" Padding="0" Margin="0" CornerRadius="0"  HorizontalOptions="FillAndExpand">
+                                        <StackLayout Orientation="Horizontal">
+                                            <Entry x:Name="TxtCompania" 
+                                               TextColor="Black"
+                                               FontSize="16"
+                                               HorizontalOptions="FillAndExpand" 
+                                               Margin="0, 0, 15, 0"></Entry>
+                                        </StackLayout>
+                                    </Frame>
+                                    <Label Text="Elige la razón" TextColor="Black" FontSize="18" FontAttributes="Bold"/>
+                                    <Frame BackgroundColor="#31FFFFFF" Padding="0" Margin="0" CornerRadius="0"  HorizontalOptions="FillAndExpand">
+                                        <StackLayout Orientation="Vertical">
+                                            <Picker x:Name="TxtRazon"
+                                                    TextColor="Black"
+                                                    FontSize="16">
+                                                <Picker.Items>
+                                                        <x:String>Sugerencia</x:String>
+                                                        <x:String>Queja</x:String>
+                                                    </Picker.Items>
+                                            </Picker>
+                                        </StackLayout>
+                                    </Frame>
+                                    <Label Text="Fecha de incidente" TextColor="Black" FontSize="18" FontAttributes="Bold"/>
+                                    <Frame BackgroundColor="#31FFFFFF" Padding="0" Margin="0" CornerRadius="0" HorizontalOptions="FillAndExpand">
+                                        <DatePicker x:Name="TxtDateOfIncident"
+                                                    Format="D"
+                                                    FontSize="16"/>
+                                    </Frame>
+                                    <Label Text="Escribe el mensaje de la situación" TextColor="Black" FontSize="18" FontAttributes="Bold"/>
+                                    <Frame BackgroundColor="#31FFFFFF" Padding="0" Margin="0" CornerRadius="0"  HorizontalOptions="FillAndExpand">
+                                        <StackLayout Orientation="Vertical">
+                                            <Editor x:Name="TxtMessage" 
+                                                    TextColor="Black"
+                                                    FontSize="16"
+                                                    HeightRequest="100" 
+                                                    Margin="0, 0, 15, 0"/>
+                                        </StackLayout>
+                                    </Frame>
+                                </StackLayout>
+
+                                <Button Margin="0,0,0,5" 
+                                        Text="ENVIAR"
+                                        BackgroundColor="#d02030"
+                                        TextColor="White" 
+                                        FontAttributes="Bold" 
+                                        CornerRadius="20" 
+                                        FontSize="Subtitle"
+                                        x:Name="SendData" 
+                                        Clicked="SendData_Clicked"
+                                        />
+
+
+                            </StackLayout>
+                        </ScrollView>
+                    </Frame>
+                </StackLayout>
+            </Grid>
+        </StackLayout>
+
+    </ContentPage.Content>
+</ContentPage>

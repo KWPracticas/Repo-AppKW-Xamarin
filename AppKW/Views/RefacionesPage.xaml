@@ -1,0 +1,136 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:AppKW.ViewModels"
+             Title="{Binding Title}"
+             x:Class="AppKW.Views.RefacionesPage">
+
+    <ContentPage.BindingContext>
+        <vm:RefaccionesViewModel/>
+    </ContentPage.BindingContext>
+
+    <ContentPage.Content>
+        <ScrollView>
+            <StackLayout>
+                <Label Text="REFACCIONES ORIGINALES KENWORTH"
+                   HorizontalTextAlignment="Center"
+                   FontSize="25"
+                   FontAttributes="Bold"
+                   FontFamily="Titulo"
+                   TextColor="Black"/>
+                <Label Text="COMO DISTRIBUIDOR AUTORIZADO KENWORTH DE REFACCIONES USTED SABE EL VALOR, LA SELECCION Y LOS AHORROS DISPONIBLES."
+                   HorizontalOptions="CenterAndExpand" 
+                   FontSize="15"
+                   HorizontalTextAlignment="Center"/>
+                <Image Source="refacciones.jpg" WidthRequest="200" HeightRequest="200"/>
+
+                <StackLayout Padding="12" Margin="5">
+                    <Frame IsClippedToBounds="True"
+                           HasShadow="True"
+                           Padding="0"
+                           BackgroundColor="#d02030" >
+                        <Frame.Margin>
+                            <OnPlatform x:TypeArguments="Thickness"/>
+                        </Frame.Margin>
+
+                        <StackLayout HorizontalOptions="FillAndExpand" Orientation="Vertical">
+
+                            <StackLayout HorizontalOptions="FillAndExpand" Orientation="Vertical" Padding="15">
+                                <Label FontSize = "25" 
+                                       Text="ACERCA DE TRP" 
+                                       FontFamily="Texto" 
+                                       HorizontalTextAlignment="Center"
+                                       TextColor="White"/>
+                                <Label Text="Promesa de TRP para todas las marcas. En la que usted puede confiar cuando el camino es incierto. Significa una amplia variedad de partes de repuesto confiables para todas las marcas de camiones, remolques y autobuses. Representa calidad y valor para aplicaciones de servicio pesado y mediano. Y es la que le ofrece una garantía líder en la industria y disponibilidad en todo el país que para que su negocio siga progresando." 
+                                       FontSize = "16"
+                                       HorizontalTextAlignment="Center"
+                                       TextColor="White"/>
+                            </StackLayout>
+                            <Image  Source="refa1.jpg" Aspect="Fill" HeightRequest="250" />
+                        </StackLayout>
+                    </Frame>
+                </StackLayout>
+                <Button Margin="4,0,4,5" 
+                        Text="M A S   S O B R E   T R P"
+                        BackgroundColor="Black"
+                        TextColor="#d02030" 
+                        FontAttributes="Bold" 
+                        CornerRadius="20" 
+                        FontSize="Subtitle"
+                        Clicked="SobreTRP_Clicked"
+                        />
+                <Button Margin="4,0,4,5" 
+                        Text="V E R A C R U Z   T R P"
+                        BackgroundColor="Black"
+                        TextColor="#d02030" 
+                        FontAttributes="Bold" 
+                        CornerRadius="20" 
+                        FontSize="Subtitle"
+                        Clicked="VeracruzTRP_Clicked"
+                        />
+
+                <StackLayout Margin="4,0,4,0">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="5*" />
+                            <RowDefinition Height="5*" />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition />
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+
+                        <!--<BoxView Color="White" />-->
+                        <StackLayout BackgroundColor="White">
+                            <StackLayout Padding="40">
+                                <Frame CornerRadius="100" 
+                                   HeightRequest="100"
+                                   WidthRequest="150"
+                                   HorizontalOptions="Center"
+                                   VerticalOptions="Center"
+                                   Padding="0"
+                                   IsClippedToBounds="True">
+                                    <Image Source="circle1.jpg" 
+                                       HorizontalOptions="Center"
+                                       VerticalOptions="Center" />
+                                </Frame>
+                            </StackLayout>
+                        </StackLayout>
+                        
+
+                        <!-- <BoxView Grid.Column="1" Color="#d02030" /> -->
+                        <StackLayout Grid.Column="1" Background="#d02030">
+                            <Label></Label>
+                            <Label Text="ASESORIA ESPECIALIZADA." VerticalTextAlignment="Center" HorizontalTextAlignment="Center"/>
+                            <Label Text="Blocks de freno de la mas alta calidad, con formulas adecuadas para cada aplicacion." HorizontalTextAlignment="Center" VerticalTextAlignment="Center"/>
+
+                        </StackLayout>
+
+                        <!-- <BoxView Grid.Row="1" Color="Teal" /> -->
+                        <StackLayout Grid.Row="1" Background="#d02030">
+                            <Label></Label>
+                            <Label Text="INSPECCIÓN VISUAL" HorizontalOptions="Center" VerticalOptions="Center" HorizontalTextAlignment="Center"/>
+                            <Label Text="Se recomienda verificar el desgaste no excesivo, ya que esté proceso ayudará a tener un desgaste uniforme en la balata." HorizontalTextAlignment="Center"/>
+                        </StackLayout>
+
+                        <StackLayout Grid.Row="1" Grid.Column="1" BackgroundColor="White">
+                            <StackLayout Padding="40">
+                                <Frame CornerRadius="100" 
+                                   HeightRequest="100"
+                                   WidthRequest="150"
+                                   HorizontalOptions="Center"
+                                   VerticalOptions="Center"
+                                   Padding="0"
+                                   IsClippedToBounds="True">
+                                    <Image Source="circle2.jpg" 
+                                       HorizontalOptions="Center"
+                                       VerticalOptions="Center" />
+                                </Frame>
+                            </StackLayout>
+                        </StackLayout >
+                    </Grid>
+                </StackLayout>
+            </StackLayout>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>

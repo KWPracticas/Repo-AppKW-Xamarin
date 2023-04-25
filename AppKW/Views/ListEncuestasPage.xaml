@@ -1,0 +1,150 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="AppKW.Views.ListEncuestasPage"
+             Title="RESULTADOS">
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem IconImageSource="icon_descargar.png"
+                     Clicked="ToolBarDescargar_Clicked"/>
+    </ContentPage.ToolbarItems>
+    
+    <ContentPage.Content>
+        <StackLayout>
+            <StackLayout Padding="9">
+                <CollectionView x:Name="EncuestasListView" 
+                            ItemsSource="{Binding encuestas}"
+                            VerticalOptions="Center">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Grid Padding="10">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="35" />
+                                    <RowDefinition Height="35" />
+                                    <RowDefinition Height="35" />
+                                    <RowDefinition Height="35" />
+                                    <RowDefinition Height="35" />
+                                    <RowDefinition Height="35" />
+                                    <RowDefinition Height="35" />
+                                    <RowDefinition Height="35" />
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+
+                                <Frame Grid.Column="0" Grid.Row="0" BackgroundColor="#676767" Padding="5">
+                                    <Label Text="{Binding departamento}" HorizontalOptions="Center" />
+                                </Frame>
+                                <Frame Grid.Column="1" Grid.Row="0" BackgroundColor="#676767" Padding="5">
+                                    <Label Text="{Binding nombre}" HorizontalOptions="Center" />
+                                </Frame>
+
+                                <Label Grid.Column="0" Grid.Row="1" Text="Pregunta 1" />
+                                <Label Grid.Column="1" Grid.Row="1" Text="{Binding pregunta1}" />
+
+                                <Label Grid.Column="0" Grid.Row="2" Text="Pregunta 2" />
+                                <Label Grid.Column="1" Grid.Row="2" Text="{Binding pregunta2}" />
+
+                                <Label Grid.Column="0" Grid.Row="3" Text="Pregunta 3" />
+                                <Label Grid.Column="1" Grid.Row="3" Text="{Binding pregunta3}" />
+
+                                <Label Grid.Column="0" Grid.Row="4" Text="Pregunta 4" />
+                                <Label Grid.Column="1" Grid.Row="4" Text="{Binding pregunta4}" />
+
+                                <Label Grid.Column="0" Grid.Row="5" Text="Pregunta 5" />
+                                <Label Grid.Column="1" Grid.Row="5" Text="{Binding pregunta5}" />
+
+                                <Label Grid.Column="0" Grid.Row="6" Text="Pregunta 6" />
+                                <Label Grid.Column="1" Grid.Row="6" Text="{Binding pregunta6}" />
+
+                                <Label Grid.Column="0" Grid.Row="7" Text="Pregunta 7" />
+                                <Label Grid.Column="1" Grid.Row="7" Text="{Binding pregunta7}" />
+                            </Grid>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </StackLayout>
+            <StackLayout IsVisible="false">
+                <Grid Padding="10">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Frame Grid.Column="0" Grid.Row="0" BackgroundColor="#676767" Padding="5">
+                        <Label Text="Departemento" HorizontalOptions="Center" />
+                    </Frame>
+                    <Frame Grid.Column="1" Grid.Row="0" BackgroundColor="#676767" Padding="5">
+                        <Label Text="Nombre" HorizontalOptions="Center" />
+                    </Frame>
+                    <Frame Grid.Column="2" Grid.Row="0" BackgroundColor="#676767" Padding="5">
+                        <Label Text="Pregunta 1" HorizontalOptions="Center" />
+                    </Frame>
+                    <Frame Grid.Column="3" Grid.Row="0" BackgroundColor="#676767" Padding="5">
+                        <Label Text="Pregunta 2" HorizontalOptions="Center" />
+                    </Frame>
+                    <Frame Grid.Column="4" Grid.Row="0" BackgroundColor="#676767" Padding="5">
+                        <Label Text="Pregunta 3" HorizontalOptions="Center" />
+                    </Frame>
+                    <Frame Grid.Column="5" Grid.Row="0" BackgroundColor="#676767" Padding="5">
+                        <Label Text="Pregunta 4" HorizontalOptions="Center" />
+                    </Frame>
+                    <Frame Grid.Column="6" Grid.Row="0" BackgroundColor="#676767" Padding="5">
+                        <Label Text="Pregunta 5" HorizontalOptions="Center" />
+                    </Frame>
+                    <Frame Grid.Column="7" Grid.Row="0" BackgroundColor="#676767" Padding="5">
+                        <Label Text="Pregunta 6" HorizontalOptions="Center" />
+                    </Frame>
+                    <Frame Grid.Column="8" Grid.Row="0" BackgroundColor="#676767" Padding="5">
+                        <Label Text="Pregunta 7" HorizontalOptions="Center" />
+                    </Frame>
+                </Grid>
+                <!-- .........................  -->
+                <CollectionView x:Name="TablaPruebaDescarga" 
+                            ItemsSource="{Binding Prueba}"
+                            VerticalOptions="Center">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Grid Padding="10">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*" />
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+
+                                <Label Grid.Column="0" Grid.Row="0" Text="{Binding departamento}" />
+                                <Label Grid.Column="1" Grid.Row="0" Text="{Binding nombre}" />
+                                <Label Grid.Column="2" Grid.Row="0" Text="{Binding pregunta1}" />
+                                <Label Grid.Column="3" Grid.Row="0" Text="{Binding pregunta2}" />
+                                <Label Grid.Column="4" Grid.Row="0" Text="{Binding pregunta3}" />
+                                <Label Grid.Column="5" Grid.Row="0" Text="{Binding pregunta4}" />
+                                <Label Grid.Column="6" Grid.Row="0" Text="{Binding pregunta5}" />
+                                <Label Grid.Column="7" Grid.Row="0" Text="{Binding pregunta6}" />
+                                <Label Grid.Column="8" Grid.Row="0" Text="{Binding pregunta7}" />
+                            </Grid>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </StackLayout>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

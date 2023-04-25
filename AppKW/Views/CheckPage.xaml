@@ -1,0 +1,160 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="AppKW.Views.CheckPage"
+             Title="Check">
+    <ContentPage.Content>
+        <StackLayout>
+            <Grid>
+                <StackLayout Margin="15, 15, 15, 0">
+                    <Frame BackgroundColor="#e1e2e1" BorderColor="#f5f5f6" HasShadow="True" HeightRequest="600" HorizontalOptions="FillAndExpand">
+                        <ScrollView>
+                            <StackLayout>
+                                <StackLayout HorizontalOptions="CenterAndExpand">
+                                    <Label Text="FORMULARIO DE VALORACIÓN DE EQUIPO" 
+                                       TextColor="Black" 
+                                       FontFamily="Titulo"
+                                       FontSize="Title"
+                                       FontAttributes="Bold"
+                                       HorizontalTextAlignment="Center">
+                                    </Label>
+                                    <Label Text="Objetivo ......." 
+                                       TextColor="Black" 
+                                       FontFamily="Texto"
+                                       FontSize="Header"
+                                       HorizontalTextAlignment="Center"/>
+                                </StackLayout>
+                                <Label Text="Ingresa tu nombre completo:" TextColor="Black" FontSize="18" FontAttributes="Bold"/>
+                                <Frame BackgroundColor="#31FFFFFF" BorderColor="#31FFFFFF" Padding="0" Margin="0" CornerRadius="0"  HorizontalOptions="FillAndExpand">
+                                    <StackLayout Orientation="Horizontal">
+                                        <Entry x:Name="TxtNombre" 
+                                           FontSize="16"
+                                           HorizontalOptions="FillAndExpand" 
+                                           Margin="0, 0, 15, 0"></Entry>
+                                    </StackLayout>
+                                </Frame>
+                                <Label Text="Ingresa tu departamento:" TextColor="Black" FontSize="18" FontAttributes="Bold"/>
+                                <Frame BackgroundColor="#31FFFFFF" BorderColor="#31FFFFFF" Padding="0" Margin="0" CornerRadius="0"  HorizontalOptions="FillAndExpand">
+                                    <StackLayout Orientation="Horizontal">
+                                        <Entry x:Name="TxtDepartamento" 
+                                           FontSize="16"
+                                           HorizontalOptions="FillAndExpand" 
+                                           Margin="0, 0, 15, 0"></Entry>
+                                    </StackLayout>
+                                </Frame>
+                                <Label Text="¿Te sientes valorado por tus contribuciones?" TextColor="Black" FontSize="18" FontAttributes="Bold"/>
+                                <Frame BackgroundColor="#31FFFFFF" Padding="0" Margin="0" CornerRadius="0"  HorizontalOptions="FillAndExpand">
+                                    <StackLayout Orientation="Vertical">
+                                        <Picker x:Name="TxtP1"
+                                            FontSize="16">
+                                            <Picker.Items>
+                                                <x:String>Si</x:String>
+                                                <x:String>No</x:String>
+                                                <x:String>Tal vez</x:String>
+                                                <x:String>Poco</x:String>
+                                            </Picker.Items>
+                                        </Picker>
+                                    </StackLayout>
+                                </Frame>
+                                <Label Text="¿La gerencia parece interesada en el éxito del equipo?" TextColor="Black" FontSize="18" FontAttributes="Bold"/>
+                                <Frame BackgroundColor="#31FFFFFF" Padding="0" Margin="0" CornerRadius="0"  HorizontalOptions="FillAndExpand">
+                                    <StackLayout Orientation="Vertical">
+                                        <Picker x:Name="TxtP2"
+                                            FontSize="16">
+                                            <Picker.Items>
+                                                <x:String>Si</x:String>
+                                                <x:String>No</x:String>
+                                                <x:String>Tal vez</x:String>
+                                                <x:String>Poco</x:String>
+                                            </Picker.Items>
+                                        </Picker>
+                                    </StackLayout>
+                                </Frame>
+                                <Label Text="¿Disfrutas de venir todos los días a la empresa?" TextColor="Black" FontSize="18" FontAttributes="Bold"/>
+                                <Frame BackgroundColor="#31FFFFFF" Padding="0" Margin="0" CornerRadius="0"  HorizontalOptions="FillAndExpand">
+                                    <StackLayout Orientation="Vertical">
+                                        <Picker x:Name="TxtP3"
+                                            FontSize="16">
+                                            <Picker.Items>
+                                                <x:String>Si</x:String>
+                                                <x:String>No</x:String>
+                                                <x:String>Tal vez</x:String>
+                                                <x:String>Poco</x:String>
+                                            </Picker.Items>
+                                        </Picker>
+                                    </StackLayout>
+                                </Frame>
+                                <Label Text="¿Te sientes conectado con tus compañeros de trabajo?" TextColor="Black" FontSize="18" FontAttributes="Bold"/>
+                                <Frame BackgroundColor="#31FFFFFF" Padding="0" Margin="0" CornerRadius="0"  HorizontalOptions="FillAndExpand">
+                                    <StackLayout Orientation="Vertical">
+                                        <Picker x:Name="TxtP4"
+                                            FontSize="16">
+                                            <Picker.Items>
+                                                <x:String>Si</x:String>
+                                                <x:String>No</x:String>
+                                                <x:String>Tal vez</x:String>
+                                                <x:String>Poco</x:String>
+                                            </Picker.Items>
+                                        </Picker>
+                                    </StackLayout>
+                                </Frame>
+                                <Label Text="¿Tus líderes, gerentes y jefes inmediatos valoran tus comentarios o sugerencias?" TextColor="Black" FontSize="18" FontAttributes="Bold"/>
+                                <Frame BackgroundColor="#31FFFFFF" Padding="0" Margin="0" CornerRadius="0"  HorizontalOptions="FillAndExpand">
+                                    <StackLayout Orientation="Vertical">
+                                        <Picker x:Name="TxtP5"
+                                            FontSize="16">
+                                            <Picker.Items>
+                                                <x:String>Si</x:String>
+                                                <x:String>No</x:String>
+                                                <x:String>Tal vez</x:String>
+                                                <x:String>Poco</x:String>
+                                            </Picker.Items>
+                                        </Picker>
+                                    </StackLayout>
+                                </Frame>
+                                <Label Text="¿Tienes claro lo que exige tu rol para cumplir con los objetivos generales de la empresa?" TextColor="Black" FontSize="18" FontAttributes="Bold"/>
+                                <Frame BackgroundColor="#31FFFFFF" Padding="0" Margin="0" CornerRadius="0"  HorizontalOptions="FillAndExpand">
+                                    <StackLayout Orientation="Vertical">
+                                        <Picker x:Name="TxtP6"
+                                            FontSize="16">
+                                            <Picker.Items>
+                                                <x:String>Si</x:String>
+                                                <x:String>No</x:String>
+                                                <x:String>Tal vez</x:String>
+                                                <x:String>Estoy en proceso</x:String>
+                                            </Picker.Items>
+                                        </Picker>
+                                    </StackLayout>
+                                </Frame>
+                                <Label Text="¿Tu equipo de trabajo te inspira a dar lo mejor de ti?" TextColor="Black" FontSize="18" FontAttributes="Bold"/>
+                                <Frame BackgroundColor="#31FFFFFF" Padding="0" Margin="0" CornerRadius="0"  HorizontalOptions="FillAndExpand">
+                                    <StackLayout Orientation="Vertical">
+                                        <Picker x:Name="TxtP7"
+                                            FontSize="16">
+                                            <Picker.Items>
+                                                <x:String>Si</x:String>
+                                                <x:String>No</x:String>
+                                                <x:String>Tal vez</x:String>
+                                                <x:String>Estoy en proceso</x:String>
+                                            </Picker.Items>
+                                        </Picker>
+                                    </StackLayout>
+                                </Frame>
+                                <Button Margin="0,0,0,5" 
+                                        Text="ENVIAR"
+                                        BackgroundColor="#d02030"
+                                        TextColor="White" 
+                                        FontAttributes="Bold" 
+                                        CornerRadius="20" 
+                                        FontSize="Subtitle"
+                                        x:Name="SendData" 
+                                        Clicked="DataEncuestas_Clicked"
+                                        />
+                            </StackLayout>
+                        </ScrollView>
+                    </Frame>
+                </StackLayout>
+            </Grid>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

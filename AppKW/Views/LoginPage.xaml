@@ -1,0 +1,117 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="AppKW.Views.LoginPage"
+             Shell.NavBarIsVisible="False"
+             Shell.FlyoutBehavior="Disabled"
+             BackgroundColor="{StaticResource Second}">
+    <ContentPage.Content>
+        <StackLayout Padding="0">
+            <Grid>
+                <StackLayout Padding="0" Margin="0">
+                    <Frame HeightRequest="200" HorizontalOptions="FillAndExpand" Padding="0">
+                        <Image Source="img3.jpg" Aspect="Fill" Margin="0"/>
+                    </Frame>
+                </StackLayout>
+                <StackLayout Margin="15, 150, 15, 0">
+                    <Frame BackgroundColor="White" HasShadow="True" HeightRequest="480" HorizontalOptions="FillAndExpand">
+                        <StackLayout>
+                            <StackLayout HorizontalOptions="CenterAndExpand">
+                                <Label Text="I N I C I A R     S E S I Ó N" TextColor="#000000"  FontSize="Medium" FontAttributes="Bold"></Label>
+                            </StackLayout>
+                            <Grid Margin="0, 15, 0, 0">
+                                <Frame BackgroundColor="White" BorderColor="White" WidthRequest="70" Padding="0" Margin="0" HeightRequest="70" CornerRadius="30" HasShadow="False" VerticalOptions="Center" HorizontalOptions="CenterAndExpand">
+                                    <Image Source="logo.jpg" />
+                                </Frame>
+                            </Grid>
+                            <StackLayout Margin="0, 25, 0, 0">
+                                <Frame BackgroundColor="White" BorderColor="DarkGray" Padding="0" Margin="0" CornerRadius="50" HorizontalOptions="FillAndExpand">
+                                    <StackLayout Orientation="Horizontal">
+                                        <Frame CornerRadius="40" HeightRequest="35" WidthRequest="35" Padding="0" HorizontalOptions="Start" Margin="7">
+                                            <Image Source="icon_email_check.png" />
+                                        </Frame>
+
+                                        <Entry Placeholder="Email" 
+                                               x:Name="TxtEmail" 
+                                               TextColor="#e91018" 
+                                               HorizontalOptions="FillAndExpand" 
+                                               Margin="0, 0, 15, 0"
+                                               Keyboard="Email"></Entry>
+                                    </StackLayout>
+                                </Frame>
+                                <Frame BackgroundColor="White" BorderColor="DarkGray" Padding="0" Margin="0,15,0,0" CornerRadius="50" HorizontalOptions="FillAndExpand">
+                                    <StackLayout Orientation="Horizontal">
+                                        <Frame CornerRadius="50" HeightRequest="35" WidthRequest="35" Padding="0" HorizontalOptions="Start" Margin="7">
+                                            <Image Source="icon_password_check.png" Aspect="Fill" Margin="0"/>
+                                        </Frame>
+                                        <Entry Placeholder="Password" 
+                                               IsPassword="True" 
+                                               x:Name="TxtPassword" 
+                                               TextColor="#e91018 " 
+                                               HorizontalOptions="FillAndExpand" 
+                                               Margin="0, 0, 15, 0"></Entry>
+                                    </StackLayout>
+                                </Frame>
+                            </StackLayout>
+                            <StackLayout Orientation="Horizontal" Margin="0,14,0,10">
+                                <CheckBox IsChecked="false" Color="#e91018 "/>
+                                <Label Text="Recordar" HorizontalTextAlignment="Start" TextColor="#000000" VerticalTextAlignment="Center"/>
+
+                                <Label Text="¿Olvidó su password?" 
+                                       HorizontalTextAlignment="End" 
+                                       TextColor="#000000" 
+                                       HorizontalOptions="EndAndExpand" 
+                                       FontAttributes="Bold" 
+                                       VerticalTextAlignment="Center">
+                                    <Label.GestureRecognizers>
+                                        <TapGestureRecognizer x:Name="ForgotTap"
+                                                              Tapped="ForgotTap_Tapped"></TapGestureRecognizer>
+                                    </Label.GestureRecognizers>
+                                </Label>
+                              
+
+                            </StackLayout>
+                            <Button Margin="0,0,0,5" 
+                                    Text="I N I C I A R" 
+                                    x:Name="BtnSignIn" 
+                                    BackgroundColor="#e91018" 
+                                    TextColor="White" 
+                                    FontAttributes="Bold" 
+                                    CornerRadius="20" 
+                                    Clicked="BtnSignIn_Clicked"/> 
+                            <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
+                                <Label Text="¿Todavia no te conectas?" HorizontalTextAlignment="Center" TextColor="#000000" VerticalTextAlignment="Center"/>
+
+                                <Label Text="Regístrate" 
+                                       HorizontalTextAlignment="Center" 
+                                       TextColor="#e91018" 
+                                       FontAttributes="Bold" 
+                                       VerticalTextAlignment="Center"
+                                       x:Name="LblRegister">
+
+                                    <Label.GestureRecognizers>
+                                        <TapGestureRecognizer x:Name="RegisterTap"
+                                                              Tapped="RegisterTap_Tapped"></TapGestureRecognizer>
+                                    </Label.GestureRecognizers>
+                                </Label>
+                            </StackLayout>
+                            <StackLayout>
+                                <StackLayout Orientation="Horizontal" HorizontalOptions="CenterAndExpand">
+                                    <Frame BackgroundColor="#4081e3" WidthRequest="25" Padding="0" Margin="0" HeightRequest="25" CornerRadius="30" HasShadow="False">
+                                        <Image Source="facebook.png" Aspect="Fill" Margin="0"/>
+                                    </Frame>
+                                    <Frame BackgroundColor="#01abe5" WidthRequest="25" Padding="0" Margin="0" HeightRequest="25" CornerRadius="30" HasShadow="False">
+                                        <Image Source="twitter.png" Aspect="Fill" Margin="0"/>
+                                    </Frame>
+                                </StackLayout>
+                            </StackLayout>
+                        </StackLayout>
+                    </Frame>
+                </StackLayout>
+            </Grid>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

@@ -1,0 +1,64 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="AppKW.Views.EmployeesPage"
+             Title="ENCUESTAS">
+    <ContentPage.Content>
+        <StackLayout Padding="10">
+            <!--<WebView x:Name="browser"></WebView> -->
+            <Frame Padding="10">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+
+                    <Label Grid.Row="0"
+                           Grid.Column="0" 
+                           Text="Encuestas Disponibles"/>
+                    <ImageButton Grid.Row="0"
+                                 Grid.Column="1"
+                                 BackgroundColor="White"
+                                 Source="icon_peglable.png"
+                                 HeightRequest="30"/>
+                    
+                </Grid>
+            </Frame>
+            <StackLayout>
+                <Button Text="Calidad en el ambiente laboral" Clicked="Clicked_Check"/>
+                <Button Text="Administración del tiempo" />
+            </StackLayout>
+
+            <Frame Padding="10">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+
+                    <Label Grid.Row="0"
+                           Grid.Column="0" 
+                           Text="Encuestas Realizadas"/>
+                    <ImageButton Grid.Row="0"
+                                 Grid.Column="1"
+                                 BackgroundColor="White"
+                                 Source="icon_peglable.png"
+                                 HeightRequest="30"/>
+                </Grid>
+            </Frame>
+            <StackLayout>
+                <Button Text="Transporte de personal" Clicked="Clicked_Encuestas" BackgroundColor="#676767"/>
+                
+            </StackLayout>
+
+            <!--   <Button Text="Encuetas" Clicked="Clicked_Encuestas"></Button>
+            <Button Text="Check" Clicked="Clicked_Check"></Button> -->
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

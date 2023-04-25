@@ -1,0 +1,161 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="AppKW.Views.Contacto"
+             xmlns:vm="clr-namespace:AppKW.ViewModels"
+             Title="{Binding Title}"
+             xmlns:behavior="clr-namespace:AppKW.Behavior;assembly=AppKW"
+             BackgroundColor="{StaticResource Second}">
+
+    <ContentPage.BindingContext>
+        <vm:ContactoViewModel/>
+    </ContentPage.BindingContext>
+
+    <ContentPage.Content>
+        <Grid>
+            <StackLayout Margin="15, 15, 15, 0">
+                <Frame BackgroundColor="#e1e2e1" BorderColor="#f5f5f6" HasShadow="True" HeightRequest="600" HorizontalOptions="FillAndExpand">
+                    <ScrollView>
+                        <StackLayout>
+                            <StackLayout HorizontalOptions="CenterAndExpand">
+                                <Label Text="FORMULARIO DE CONTACTO" 
+                                       TextColor="Black" 
+                                       FontFamily="Titulo"
+                                       FontSize="Title"
+                                       FontAttributes="Bold"
+                                       HorizontalTextAlignment="Center">
+                                </Label>
+                                <Label Text="Envíe sus datos de contacto, un ejecutivo se comunicará con usted para resolver sus dudas." 
+                                       TextColor="Black" 
+                                       FontFamily="Texto"
+                                       FontSize="Header"
+                                       HorizontalTextAlignment="Center"/>
+                            </StackLayout>
+                            <Label Text="Ingresa tu nombre:" TextColor="Black" FontSize="18" FontAttributes="Bold"/>
+                            <Frame BackgroundColor="#31FFFFFF" BorderColor="#31FFFFFF" Padding="0" Margin="0" CornerRadius="0"  HorizontalOptions="FillAndExpand">
+                                <StackLayout Orientation="Horizontal">
+                                    <Entry x:Name="TxtNombre" 
+                                           FontSize="16"
+                                           HorizontalOptions="FillAndExpand" 
+                                           Margin="0, 0, 15, 0">
+                                        <Entry.Keyboard>
+                                            <Keyboard x:FactoryMethod="Create">
+                                                <x:Arguments>
+                                                    <KeyboardFlags>CapitalizeWord,Spellcheck</KeyboardFlags>
+                                                </x:Arguments>
+                                            </Keyboard>
+                                        </Entry.Keyboard>
+                                    </Entry>
+                                </StackLayout>
+                            </Frame>
+                            <Label Text="Ingresa tus apellidos:" TextColor="Black" FontSize="18" FontAttributes="Bold"/>
+                            <Frame BackgroundColor="#31FFFFFF" BorderColor="#31FFFFFF" Padding="0" Margin="0" CornerRadius="0"  HorizontalOptions="FillAndExpand">
+                                <StackLayout Orientation="Horizontal">
+                                    <Entry x:Name="TxtApellido" 
+                                           FontSize="16"
+                                           HorizontalOptions="FillAndExpand" 
+                                           Margin="0, 0, 15, 0">
+                                        <Entry.Keyboard>
+                                            <Keyboard x:FactoryMethod="Create">
+                                                <x:Arguments>
+                                                    <KeyboardFlags>CapitalizeWord,Spellcheck</KeyboardFlags>
+                                                </x:Arguments>
+                                            </Keyboard>
+                                        </Entry.Keyboard>
+                                    </Entry>
+                                </StackLayout>
+                            </Frame>
+                            <Label Text="Ingresa tu número de teléfono:" TextColor="Black" FontSize="18" FontAttributes="Bold"/>
+                            <Frame BackgroundColor="#31FFFFFF" BorderColor="#31FFFFFF" Padding="0" Margin="0" CornerRadius="0"  HorizontalOptions="FillAndExpand">
+                                <StackLayout Orientation="Horizontal">
+                                    <Entry x:Name="TxtTelefono" 
+                                           FontSize="16"
+                                           Keyboard="Telephone"
+                                           MaxLength="10"
+                                           HorizontalOptions="FillAndExpand" 
+                                           Margin="0, 0, 15, 0">
+                                    </Entry>
+                                </StackLayout>
+                            </Frame>
+                            <Label Text="Ingresa un correo electrónico:" TextColor="Black" FontSize="18" FontAttributes="Bold"/>
+                            <Frame BackgroundColor="#31FFFFFF" Padding="0" Margin="0" CornerRadius="0"  HorizontalOptions="FillAndExpand">
+                                <StackLayout Orientation="Horizontal">
+                                    <Entry x:Name="TxtCorreo" 
+                                           FontSize="16"
+                                           Keyboard="Email"
+                                           HorizontalOptions="FillAndExpand" 
+                                           Margin="0, 0, 15, 0"></Entry>
+                                </StackLayout>
+                            </Frame>
+                            <Label Text="Seleccione en que está interesado :" TextColor="Black" FontSize="18" FontAttributes="Bold"/>
+                            <Frame BackgroundColor="#31FFFFFF" Padding="0" Margin="0" CornerRadius="0"  HorizontalOptions="FillAndExpand">
+                                <StackLayout Orientation="Vertical">
+                                    <Picker x:Name="TxtInteresado"
+                                            FontSize="16">
+                                        <Picker.Items>
+                                                <x:String>Unidades nuevas</x:String>
+                                                <x:String>Seminuevas</x:String>
+                                                <x:String>Refacciones</x:String>
+                                                <x:String>Servicio</x:String>
+                                                <x:String>Siniestro</x:String>
+                                            </Picker.Items>
+                                    </Picker>
+                                </StackLayout>
+                            </Frame>
+                            <Label Text="Ingresa a qué compañía pertenece:" TextColor="Black" FontSize="18" FontAttributes="Bold"/>
+                            <Frame BackgroundColor="#31FFFFFF" Padding="0" Margin="0" CornerRadius="0"  HorizontalOptions="FillAndExpand">
+                                <StackLayout Orientation="Horizontal">
+                                    <Entry x:Name="TxtCompania" 
+                                           FontSize="16"
+                                           HorizontalOptions="FillAndExpand" 
+                                           Margin="0, 0, 15, 0">
+                                        <Entry.Keyboard>
+                                            <Keyboard x:FactoryMethod="Create">
+                                                <x:Arguments>
+                                                    <KeyboardFlags>CapitalizeWord,Spellcheck</KeyboardFlags>
+                                                </x:Arguments>
+                                            </Keyboard>
+                                        </Entry.Keyboard>
+                                    </Entry>
+                                </StackLayout>
+                            </Frame>
+                            <Label Text="Escribe el mensaje:" TextColor="Black" FontSize="18" FontAttributes="Bold"/>
+                            <Frame BackgroundColor="#31FFFFFF" Padding="0" Margin="0" CornerRadius="0"  HorizontalOptions="FillAndExpand">
+                                <StackLayout Orientation="Vertical" >
+                                    <Editor x:Name="TxtDescripcion" 
+                                            FontSize="16"
+                                            HeightRequest="100" 
+                                            Margin="0, 0, 15, 0"/>
+                                </StackLayout>
+                            </Frame>
+                            <Label Text="Tipo de registro de prospecto:" TextColor="Black" FontSize="18" FontAttributes="Bold"/>
+                            <Frame BackgroundColor="#31FFFFFF" Padding="0" Margin="0" CornerRadius="0"  HorizontalOptions="FillAndExpand">
+                                <StackLayout Orientation="Vertical">
+                                    <Picker x:Name="TxtPersona"
+                                            FontSize="16">
+                                            <Picker.Items>
+                                                <x:String>Persona Física</x:String>
+                                                <x:String>Persona Moral</x:String>
+                                            </Picker.Items>
+                                    </Picker>
+                                </StackLayout>
+                            </Frame>
+
+
+                            <Button Margin="0,0,0,5" 
+                                    Text="ENVIAR"
+                                    BackgroundColor="#d02030"
+                                    TextColor="White" 
+                                    FontAttributes="Bold" 
+                                    CornerRadius="20" 
+                                    FontSize="Subtitle"
+                                    x:Name="SendData" Clicked="SendData_Clicked">
+                            </Button>
+                        </StackLayout>
+                    </ScrollView>
+                </Frame>
+            </StackLayout>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>
+    

@@ -1,0 +1,132 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="AppKW.Views.Inicio"
+             xmlns:vm="clr-namespace:AppKW.ViewModels"
+             Title="{Binding Title}">
+
+    <ContentPage.BindingContext>
+        <vm:InicioViewModel />
+    </ContentPage.BindingContext>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <StackLayout HeightRequest="200">
+            <CarouselView x:Name="Carousel" IndicatorView="IndicatorView">
+                <CarouselView.ItemTemplate>
+                    <DataTemplate>
+                        <Image Source="{Binding Url}" Aspect="Fill" Margin="0"/>
+                    </DataTemplate>
+                </CarouselView.ItemTemplate>
+            </CarouselView>
+            <IndicatorView x:Name="IndicatorView"
+                           IndicatorColor="#2e2e2e"
+                           SelectedIndicatorColor="#676767"
+                           IndicatorSize="5"
+                           VerticalOptions="Center"/>
+        </StackLayout>
+        <ScrollView Grid.Row="1">
+            <StackLayout Orientation="Vertical" Padding="20,16,20,14" Spacing="5">
+                <Label Text="KENWORTH DEL ESTE S.A. DE C.V." 
+                       FontSize="30"
+                       FontAttributes="Bold"
+                       TextColor="#d02030"
+                       FontFamily="Titulo"
+                       HorizontalTextAlignment="Center"/>
+                <Label Text="Somos una empresa que busca consolidar su posición en la región sureste de México como líder experto en camiones y tracto camiones, enfocados al logro de objetivos y al desarrollo de nuestra comunidad, siendo la mejor opción para nuestros clientes." 
+                       FontSize="16" 
+                       FontFamily="Texto"
+                       Padding="0,0,0,0"
+                       HorizontalTextAlignment="Center"/>
+                <StackLayout Padding="10" Margin="5">
+                    <Frame IsClippedToBounds="True"
+                                    HasShadow="True"
+                                    Padding="0"
+                                    BackgroundColor="White">
+
+                        <StackLayout HorizontalOptions="FillAndExpand" Orientation="Vertical" BackgroundColor="{StaticResource Second}">
+                            <Image  Source="img3.png" Aspect="Fill" HeightRequest="200" />
+                            <StackLayout HorizontalOptions="FillAndExpand" Orientation="Vertical" Padding="15">
+                                <Label TextColor="White" FontSize = "20" Text="HISTORIA" HorizontalTextAlignment="Center"/>
+                                <Label Text="En 1923 Harry W. Kent y Edgar K. Worthington deciden establecer una marca de 
+                                       vehículos y al unir sus apellidos nace el nombre de: KENWORTH. &#10;" 
+                                       FontFamily="Century Gothic"
+                                       FontSize="17"
+                                       HorizontalTextAlignment="Center"
+                                       Padding="5,5,5,5"
+                                       TextColor="White"/>
+                                <Label Text="En 1944 KENWORTH pasa a ser propiedad de: Pacific Car and Foundry (Paccar)."
+                                       FontFamily="Century Gothic"
+                                       FontSize="17"
+                                       HorizontalTextAlignment="Center"
+                                       Padding="5,10,5,10"
+                                       TextColor="White"/>
+                            </StackLayout>
+                        </StackLayout>
+                    </Frame>
+                </StackLayout>
+                <StackLayout x:Name="StackLayout_1" VerticalOptions="Fill">
+                    <Frame
+                               Margin="0,3,0,0"
+                               HorizontalOptions="Center"
+                               VerticalOptions="Center">
+                        <StackLayout HorizontalOptions="Center"
+                                         VerticalOptions="Center">
+                            <Image x:Name="imgMision"
+                                       Source="mision.png" 
+                                       HeightRequest="160"
+                                       HorizontalOptions="Fill"
+                                       VerticalOptions="Center">
+                                <Image.GestureRecognizers>
+                                    <TapGestureRecognizer
+                                            NumberOfTapsRequired="1"
+                                            x:Name="displayFullImages"
+                                            Tapped="DisplayFullImage_TappedMision">
+                                    </TapGestureRecognizer>
+                                </Image.GestureRecognizers>
+                            </Image>
+                        </StackLayout>
+                    </Frame>
+                    <Frame>
+                        <StackLayout HorizontalOptions="Center"
+                                     VerticalOptions="Center">
+                            <Image x:Name="imgVision"
+                                       Source="vision.png" 
+                                       HeightRequest="160"
+                                       HorizontalOptions="Fill"
+                                       VerticalOptions="Center">
+                                <Image.GestureRecognizers>
+                                    <TapGestureRecognizer
+                                            NumberOfTapsRequired="1"
+                                            x:Name="displayFullImage"
+                                            Tapped="DisplayFullImage_TappedVision">
+                                    </TapGestureRecognizer>
+                                </Image.GestureRecognizers>
+                            </Image>
+                        </StackLayout>
+                    </Frame>
+                </StackLayout>
+                <StackLayout Orientation="Horizontal" HorizontalOptions="CenterAndExpand">
+                    <Frame BackgroundColor="#4081e3" WidthRequest="25" Padding="0" Margin="0" HeightRequest="25" CornerRadius="30" HasShadow="False">
+                        <ImageButton Source="facebook.png" Aspect="Fill" Margin="0" Clicked="RedSocial_Facebook"/>
+                    </Frame>
+                    <Frame BackgroundColor="#01abe5" WidthRequest="25" Padding="0" Margin="0" HeightRequest="25" CornerRadius="30" HasShadow="False">
+                        <ImageButton Source="twitter.png" Aspect="Fill" Margin="0" Clicked="RedSocial_twitter"/>
+                    </Frame>
+                    <Frame WidthRequest="25" Padding="0" Margin="0" HeightRequest="25" CornerRadius="30" HasShadow="False">
+                        <ImageButton Source="instagram.png" Aspect="Fill" Margin="0" Clicked="RedSocial_Instagram"/>
+                    </Frame>
+                    <Frame WidthRequest="25" Padding="0" Margin="0" HeightRequest="25" CornerRadius="30" HasShadow="False">
+                        <ImageButton Source="youtube.png" Aspect="Fill" Margin="0" Clicked="RedSocial_youtube"/>
+                    </Frame>
+                    <Frame WidthRequest="25" Padding="0" Margin="0" HeightRequest="25" CornerRadius="30" HasShadow="False">
+                        <ImageButton Source="tiktok.png" Aspect="Fill" Margin="0" Clicked="RedSocial_tiktok"/>
+                    </Frame>
+                </StackLayout>
+            </StackLayout>
+        </ScrollView>
+    </Grid>
+</ContentPage>

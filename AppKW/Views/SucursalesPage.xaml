@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+             xmlns:vm="clr-namespace:AppKW.ViewModels"
+             x:Class="AppKW.Views.SucursalesPage"
+             Title="{Binding Title}">
+    
+    <ContentPage.BindingContext>
+        <vm:SucursalesViewModel/>
+    </ContentPage.BindingContext>
+    
+    <ContentPage.Content>
+        <StackLayout>
+           <!-- <ScrollView> -->
+                <StackLayout Padding="0" Spacing="0">
+                <StackLayout>
+                    <WebView HeightRequest="800" WidthRequest="640" x:Name="url_mapa" />
+                </StackLayout>
+            </StackLayout>
+           <!-- </ScrollView> -->
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

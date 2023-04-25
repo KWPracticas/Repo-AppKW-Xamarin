@@ -1,0 +1,41 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="AppKW.Views.RecuperarContrasenaPage"
+             BackgroundColor="{StaticResource Second}">
+    <ContentPage.Content>
+        <StackLayout Margin="15, 150, 15, 150">
+            <Image Source="logo_recontrasena.png" HorizontalOptions="Center" WidthRequest="400" HeightRequest="100"/>
+            <Frame BackgroundColor="White" HasShadow="True" HeightRequest="300" HorizontalOptions="FillAndExpand">
+                <StackLayout VerticalOptions="Center">
+                    <Label Text="R E C U P E R A R"
+                           Margin="0, 0, 0, 3"
+                           VerticalOptions="Center" 
+                           HorizontalOptions="Center" 
+                           TextColor="#000000"  
+                           FontSize="Medium" 
+                           FontAttributes="Bold"/>
+                    <Label Text="C O N T R A S E Ñ A"
+                           VerticalOptions="Center" 
+                           HorizontalOptions="Center" 
+                           TextColor="#000000"  
+                           FontSize="Medium" 
+                           FontAttributes="Bold"
+                           Margin="0, 0, 0, 15"/>
+                    <Entry Placeholder="Ingresa tu correo"
+                           x:Name="TxtEmail"
+                           Keyboard="Email"></Entry>
+                    <Button Text="E N V I A R    L I N K" 
+                                Margin="0,15,0,0" 
+                                x:Name="ButtonSendLink"
+                                Clicked="Button_SendLink"
+                                BackgroundColor="#d02030"
+                                TextColor="White" 
+                                FontAttributes="Bold" 
+                                CornerRadius="20" 
+                                FontSize="Subtitle"/>
+                </StackLayout>
+            </Frame>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
