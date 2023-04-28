@@ -67,7 +67,7 @@ namespace AppKW.Views
                 }
                 
 
-                Uri uri = new Uri("http://192.168.1.64:8000/api/mailbox");
+                Uri uri = new Uri("https://api.kenworthdeleste.com.mx/api/mailbox");
                 var client = new HttpClient();
                 var json = JsonConvert.SerializeObject(mailboxForm);
                 var contentJson = new StringContent(json, Encoding.UTF8, "application/json");
