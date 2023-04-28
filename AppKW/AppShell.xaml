@@ -89,7 +89,6 @@
         <ShellContent ContentTemplate="{DataTemplate local:StartPage}"></ShellContent>
     </ShellItem>
 
-
     <FlyoutItem Title="Inicio" FlyoutIcon="icon_home" IsVisible="{Binding IsInvitado}">
         <ShellContent Route="Inicio" ContentTemplate="{DataTemplate local:Inicio}" />
     </FlyoutItem>
