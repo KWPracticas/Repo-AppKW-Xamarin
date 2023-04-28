@@ -16,7 +16,6 @@ namespace AppKW
 
             DependencyService.Register<MockDataStore>();
             MainPage = new AppShell();
-            //Device.SetFlags(new string[] { "MediaElement_Experimental" });
         }
 
         protected override void OnStart()

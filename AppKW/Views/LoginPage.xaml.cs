@@ -57,7 +57,7 @@ namespace AppKW.Views
                     );
                     Console.WriteLine("role: " + role);
                     //Redireccionar al Home
-                    await Shell.Current.GoToAsync($"//{nameof(PerfilPage)}");
+                    await Shell.Current.GoToAsync($"//{nameof(Inicio)}");
                 }
                 else
                 {
