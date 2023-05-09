@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using Xamarin.Essentials;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
+using static Android.Icu.Text.AlphabeticIndex;
 
 namespace AppKW.Views
 {
@@ -56,12 +57,36 @@ namespace AppKW.Views
                         (role == "Employee") ? "Employee" : "User"
                     );
                     Console.WriteLine("role: " + role);
+
+                   /*Checkbox
+                    bool isChecked = Recordar.IsChecked;
+
+                    if (isChecked)
+                    {
+                        // await DisplayAlert("info", "checkbox activado", "ok");
+                        
+                    }
+                    else
+                    {
+                        await DisplayAlert("info", "checkbox desactivado", "ok");
+                    }*/
+
+
+                    
                     //Redireccionar al Home
-                    await Shell.Current.GoToAsync($"//{nameof(Inicio)}");
+                    if (role == "User")
+                    {
+                        await Shell.Current.GoToAsync("//inicio");
+                    }
+                    else
+                    {
+                        await Shell.Current.GoToAsync("//empleado");
+                    }
+                    
                 }
                 else
                 {
-                    await DisplayAlert("Inicio de sesión", "Fallo el inicio de sesión", "Ok");
+                    await DisplayAlert("Inicio de sesión", "Su cuenta no ha sido verificada, revise su correo electrónico", "Ok");
                 }
                 
             }
@@ -69,14 +94,18 @@ namespace AppKW.Views
             {
                 if (exception.Message.Contains("EMAIL_NOT_FOUND"))
                 {
-                    await DisplayAlert("No autorizado", "Correo no existente", "Ok");
+                    await DisplayAlert("No autorizado", "Correo no existente en la base de datos", "Ok");
 
                 }
                 else if(exception.Message.Contains("INVALID_PASSWORD"))
                 {
                     await DisplayAlert("No autorizado", "Contraseña incorrecta", "Ok");
                 }
-                else
+                else if (exception.Message.Contains("INVALID_EMAIL"))
+                {
+                    await DisplayAlert("No autorizado", "Este correo electrónico no es válido", "Ok");
+                }
+                else 
                 {
                     await DisplayAlert("Error", exception.Message, "Ok");
                 }
