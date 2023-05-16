@@ -35,6 +35,17 @@ namespace AppKW.ViewModels
                 IsUser = false;
                 IsEmployee = false;
             });
+            MessagingCenter.Subscribe<StartPage>(this, "Employee", (sender) =>
+            {
+                IsEmployee = true;
+                IsInvitado = false;
+                IsUser = false;
+            });
+            MessagingCenter.Subscribe<StartPage>(this, "User", (sender) =>
+            { //Listo Logueo user
+                IsUser = true;
+                IsInvitado = true;
+            });
 
         }
     }

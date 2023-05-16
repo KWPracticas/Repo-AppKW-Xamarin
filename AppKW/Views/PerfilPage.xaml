@@ -29,6 +29,8 @@
 
 
                             </StackLayout>
+
+                            <Button Text="Cerrar Sesión" Clicked="cerrarSesion" />
                         </StackLayout>
                     </ScrollView>
                 </Frame>
@@ -36,3 +38,4 @@
         </Grid>
     </ContentPage.Content>
 </ContentPage>
+    

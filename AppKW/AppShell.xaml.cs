@@ -9,7 +9,6 @@ namespace AppKW
 {
     public partial class AppShell : Xamarin.Forms.Shell
     {
-
         public AppShell()
         {
             InitializeComponent();
@@ -32,10 +31,6 @@ namespace AppKW
             );
             Console.WriteLine("role: " + role);
         }
-
-
-
-
         /* public async void getRole()
          {
              string role = await SecureStorage.GetAsync("role");
@@ -47,6 +42,5 @@ namespace AppKW
 
              Console.WriteLine("role: " + role);
          } */
-
     }
 }

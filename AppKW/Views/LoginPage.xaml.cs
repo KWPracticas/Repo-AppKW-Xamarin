@@ -42,12 +42,13 @@ namespace AppKW.Views
 
                 
                 //Validación de logueo exitoso
-                string token = await _usuarioRepositorio.SignIn(correo.Trim(), contrasena.Trim());
-                
-                await SecureStorage.SetAsync("token", token);
-                
+                string token = await _usuarioRepositorio.SignIn(correo.Trim(), contrasena.Trim()); //exyZ ""
+                                
                 if (!string.IsNullOrEmpty(token))
                 {
+                    //Guardar token en storage
+                    await SecureStorage.SetAsync("token", token);
+
                     //Validar tipo de usuario 
                     string role = await SecureStorage.GetAsync("role");
                     MessagingCenter.Send<LoginPage>(this,
@@ -58,21 +59,19 @@ namespace AppKW.Views
                     );
                     Console.WriteLine("role: " + role);
 
-                   /*Checkbox
+                    /* Checkbox
                     bool isChecked = Recordar.IsChecked;
 
                     if (isChecked)
                     {
-                        // await DisplayAlert("info", "checkbox activado", "ok");
-                        
+                        // await DisplayAlert("info", "checkbox activado", "ok");     
                     }
                     else
                     {
                         await DisplayAlert("info", "checkbox desactivado", "ok");
-                    }*/
+                    }
+                    */
 
-
-                    
                     //Redireccionar al Home
                     if (role == "User")
                     {
@@ -88,7 +87,6 @@ namespace AppKW.Views
                 {
                     await DisplayAlert("Inicio de sesión", "Su cuenta no ha sido verificada, revise su correo electrónico", "Ok");
                 }
-                
             }
             catch(Exception exception) 
             {

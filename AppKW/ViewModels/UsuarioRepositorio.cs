@@ -1,4 +1,5 @@
 ﻿using AppKW.Models;
+using AppKW.Views;
 using Firebase.Auth;
 using Firebase.Database;
 using Firebase.Database.Query;
@@ -19,7 +20,7 @@ namespace AppKW.ViewModels
     {
         FirebaseClient firebaseClient = new FirebaseClient("https://appkw-67b39-default-rtdb.firebaseio.com/");
         static string webAPIKey = "AIzaSyA9YNZpoGoOmy18G8aUA84VmIcmcmXOFAE";
-        FirebaseAuthProvider authProvider; 
+        public FirebaseAuthProvider authProvider; 
 
         public UsuarioRepositorio()
         {
@@ -64,6 +65,10 @@ namespace AppKW.ViewModels
             {
                 if(!string.IsNullOrEmpty(userCredential.FirebaseToken))
                 {
+                    string userObj = JsonConvert.SerializeObject(userCredential);
+
+                    await SecureStorage.SetAsync("userObj", userObj);
+
                     return userCredential.FirebaseToken;
                 }
             }
@@ -96,20 +101,42 @@ namespace AppKW.ViewModels
 
         }
         //Get ID
-       /* public async Task<RegistroModel> GetById(string id)
+        /* public async Task<RegistroModel> GetById(string id)
+         {
+             var authToken = await authProvider
+                 GetFreshAuthAsync();
+             var response = await firebaseClient
+                 .Child("usuarios")
+                 .Child(id)
+                 .OnceAsync<RegistroModel>(authToken.FirebaseToken);
+
+             return response.FirstOrDefault()?.Object;
+         } */
+
+        public async Task<bool> validateToken()
         {
-            var authToken = await authProvider
-                GetFreshAuthAsync();
-            var response = await firebaseClient
-                .Child("usuarios")
-                .Child(id)
-                .OnceAsync<RegistroModel>(authToken.FirebaseToken);
 
-            return response.FirstOrDefault()?.Object;
-        } */
+            string token = await SecureStorage.GetAsync("token");
 
-
-
+            // HACER LO DEL REFRESH
+            if (!string.IsNullOrEmpty(token))
+            {
+                try
+                {
+                    var userInfo = await authProvider.GetUserAsync(token);
+                    
+                    if (userInfo != null)
+                    {
+                        return true;
+                    }
+                } catch(Exception e)
+                {
+                    Console.WriteLine(e);
+                    return false;
+                }
+            }
+            return false;
+        }
 
     }
 }

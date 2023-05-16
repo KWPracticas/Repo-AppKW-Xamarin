@@ -89,6 +89,11 @@
         <ShellContent ContentTemplate="{DataTemplate local:StartPage}"></ShellContent>
     </ShellItem>
 
+    <!--  Perfil   -->
+    <FlyoutItem Route="empleado" Title="Mi Perfil" Icon="icon_perfil.png" >
+        <ShellContent Route="PerfilPage"  ContentTemplate="{DataTemplate local:PerfilPage}"/>
+    </FlyoutItem>
+
     <FlyoutItem Route="inicio" Title="Inicio" FlyoutIcon="icon_home" IsVisible="{Binding IsInvitado}">
         <ShellContent Route="Inicio" ContentTemplate="{DataTemplate local:Inicio}" />
     </FlyoutItem>
@@ -125,13 +130,10 @@
     </FlyoutItem>
     
     <!-- Usuarios Empleados -->
-    <FlyoutItem Route="empleado" Title="Mi Perfil" Icon="icon_perfil.png" IsVisible="{Binding IsEmployee}">
-        <ShellContent Route="PerfilPage"  ContentTemplate="{DataTemplate local:PerfilPage}"/>
-    </FlyoutItem>
+    
     <FlyoutItem Title="Encuestas" Icon="icon_encuestas.png" IsVisible="{Binding IsEmployee}">
         <ShellContent Route="EmployeesPage"  ContentTemplate="{DataTemplate local:EmployeesPage}"/>
     </FlyoutItem>
-
 
 
     <!-- When the Flyout is visible this will be a menu item you can tie a click behavior to  -->
