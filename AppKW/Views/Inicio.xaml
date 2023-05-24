@@ -27,6 +27,8 @@
                            SelectedIndicatorColor="#676767"
                            IndicatorSize="5"
                            VerticalOptions="Center"/>
+            
+            
         </StackLayout>
         <ScrollView Grid.Row="1">
             <StackLayout Orientation="Vertical" Padding="20,16,20,14" Spacing="5">

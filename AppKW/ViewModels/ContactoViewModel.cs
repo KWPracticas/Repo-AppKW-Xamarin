@@ -15,7 +15,7 @@ namespace AppKW.ViewModels
                                    new FirebaseOptions { AuthTokenAsyncFactory = () => Task.FromResult(FrebaseSecret) });
         public ContactoViewModel()
         {
-            Title = "Contacto";
+            Title = "CONTACTO";
         }
     }
 }

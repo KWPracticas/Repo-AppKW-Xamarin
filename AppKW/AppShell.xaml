@@ -37,7 +37,7 @@
             https://docs.microsoft.com/xamarin/xamarin-forms/app-fundamentals/shell/flyout#flyoutitem-and-menuitem-style-classes
             -->
             <Style Class="FlyoutItemLabelStyle" TargetType="Label">
-                <Setter Property="TextColor" Value="{StaticResource Second}"></Setter>
+                <Setter Property="TextColor" Value="#FFFFFF"></Setter>
             </Style>
             <Style Class="FlyoutItemLayoutStyle" TargetType="Layout" ApplyToDerivedTypes="True">
                 <Setter Property="VisualStateManager.VisualStateGroups">
@@ -83,35 +83,34 @@
         FlyoutDisplayOptions="AsMultipleItems" will create a separate flyout item for each child element    
         https://docs.microsoft.com/dotnet/api/xamarin.forms.shellgroupitem.flyoutdisplayoptions?view=xamarin-forms
     -->
-    
-    
+
+
     <ShellItem Route="StartPage" FlyoutItemIsVisible="False">
         <ShellContent ContentTemplate="{DataTemplate local:StartPage}"></ShellContent>
     </ShellItem>
 
-    <!--  Perfil   -->
-    <FlyoutItem Route="empleado" Title="Mi Perfil" Icon="icon_perfil.png" >
-        <ShellContent Route="PerfilPage"  ContentTemplate="{DataTemplate local:PerfilPage}"/>
-    </FlyoutItem>
-
+    <!-- Usuarios Invitado -->    
     <FlyoutItem Route="inicio" Title="Inicio" FlyoutIcon="icon_home" IsVisible="{Binding IsInvitado}">
         <ShellContent Route="Inicio" ContentTemplate="{DataTemplate local:Inicio}" />
     </FlyoutItem>
 
-    <!-- Usuarios Invitado -->
+    <FlyoutItem Title="Mi perfil" Icon="icon_perfil.png" IsVisible="{Binding IsMiperfil}">
+        <ShellContent Route="UnidadesPage" ContentTemplate="{DataTemplate local:PerfilPage}" />
+    </FlyoutItem>
+    
     <FlyoutItem Title="Unidades" Icon="icon_units" IsVisible="{Binding IsInvitado}">
         <ShellContent Route="UnidadesPage" ContentTemplate="{DataTemplate local:Unidades}" />
     </FlyoutItem>
 
     <FlyoutItem Title="Sucursales" Icon="icon_location.png" IsVisible="{Binding IsInvitado}">
-        <ShellContent Route="SucursalesoPage" ContentTemplate="{DataTemplate local:SucursalesPage}"/>
+        <ShellContent Route="SucursalesoPage" ContentTemplate="{DataTemplate local:SucursalesPage}" />
     </FlyoutItem>
 
     <FlyoutItem Title="Contacto" Icon="icon_contact.png" IsVisible="{Binding IsInvitado}">
-        <ShellContent Route="ContactoPage" ContentTemplate="{DataTemplate local:Contacto}"/>
+        <ShellContent Route="ContactoPage" ContentTemplate="{DataTemplate local:Contacto}" />
     </FlyoutItem>
 
-    <FlyoutItem Title="Buzon" Icon="icon_mailbox.png" IsVisible="{Binding IsInvitado}">
+    <FlyoutItem Title="Buzón" Icon="icon_mailbox.png" IsVisible="{Binding IsInvitado}">
         <ShellContent Route="BuzonPage" ContentTemplate="{DataTemplate local:Buzon}" />
     </FlyoutItem>
 
@@ -119,20 +118,27 @@
     <FlyoutItem Title="Refacciones" Icon="icon_refacciones.png" IsVisible="{Binding IsUser}">
         <ShellContent Route="RefaccionesPage" ContentTemplate="{DataTemplate local:RefaccionesPage}" />
     </FlyoutItem>
-    <FlyoutItem Title="Carroceria" Icon="icon_carroceria.png" IsVisible="{Binding IsUser}">
-        <ShellContent Route="BuzonPage" ContentTemplate="{DataTemplate local:RefaccionesPage}" />
+    
+    <FlyoutItem Title="Carrocería" Icon="icon_carroceria.png" IsVisible="{Binding IsUser}">
+        <ShellContent Route="BuzonPage" ContentTemplate="{DataTemplate local:Carroceria}" />
     </FlyoutItem>
+    
     <FlyoutItem Title="Servicio" Icon="icon_servicio.png" IsVisible="{Binding IsUser}">
-        <ShellContent Route="BuzonPage" ContentTemplate="{DataTemplate local:RefaccionesPage}" />
+        <ShellContent Route="BuzonPage" ContentTemplate="{DataTemplate local:Servicio}" />
     </FlyoutItem>
+    
     <FlyoutItem Title="Promociones" Icon="icon_promocion.png" IsVisible="{Binding IsUser}">
-        <ShellContent Route="BuzonPage" ContentTemplate="{DataTemplate local:RefaccionesPage}" />
+        <ShellContent Route="BuzonPage" ContentTemplate="{DataTemplate local:Promociones}" />
     </FlyoutItem>
+    
     
     <!-- Usuarios Empleados -->
+    <FlyoutItem Title="Mi Perfil" Icon="icon_perfil.png" IsVisible="{Binding IsEmployee}">
+        <ShellContent Route="PerfilPage"  ContentTemplate="{DataTemplate local:PerfilPage}" />
+    </FlyoutItem>
     
     <FlyoutItem Title="Encuestas" Icon="icon_encuestas.png" IsVisible="{Binding IsEmployee}">
-        <ShellContent Route="EmployeesPage"  ContentTemplate="{DataTemplate local:EmployeesPage}"/>
+        <ShellContent Route="EmployeesPage"  ContentTemplate="{DataTemplate local:EmployeesPage}" />
     </FlyoutItem>
 
 
