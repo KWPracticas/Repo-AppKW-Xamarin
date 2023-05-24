@@ -1,4 +1,8 @@
 ﻿using AppKW.ViewModels;
+using Firebase.Auth;
+using Java.Security;
+using Newtonsoft.Json;
+using Org.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -74,6 +78,50 @@ namespace AppKW.Views
             }
             else
             {
+                //Refrescar la sesion
+                string auth = await SecureStorage.GetAsync("userObj");
+
+                if(!string.IsNullOrEmpty(auth))
+                {
+                    try
+                    {
+                        FirebaseAuthLink newUserSession = await _userRepository.sendRefreshToken(auth);
+
+
+                        string newUserObj = JsonConvert.SerializeObject(newUserSession);
+
+                        await SecureStorage.SetAsync("userObj", newUserObj);
+                        await SecureStorage.SetAsync("token", newUserSession.FirebaseToken);
+
+
+
+                        //Validar tipo de usuario 
+                        string role = await SecureStorage.GetAsync("role");
+                        MessagingCenter.Send<StartPage>(this,
+                            (role == "User") ? "User" : "invitado"
+                        );
+                        MessagingCenter.Send<StartPage>(this,
+                            (role == "Employee") ? "Employee" : "User"
+                        );
+                        Console.WriteLine("role: " + role);
+                        if (role == "User")
+                        {
+                            await Shell.Current.GoToAsync("//inicio");
+                        }
+                        else
+                        {
+                            await Shell.Current.GoToAsync("//empleado");
+                        }
+                        Console.WriteLine("Token valido");
+
+
+                    }
+                    catch(Exception ex) 
+                    { 
+                        Console.WriteLine(ex.Message); 
+                    }
+                }
+
                 await Shell.Current.GoToAsync($"//{nameof(StartPage)}");
                 Console.WriteLine("Token invalido");
             }

@@ -14,15 +14,15 @@
                                 
                                 <Label Text="Nombre." VerticalOptions="Start"/>
                                 <StackLayout HeightRequest="35" WidthRequest="100" BackgroundColor="White" Margin="0,0,0,4">
-                                    <Label x:Name="TxtNombrePerfil" Text="Cristian" />
+                                    <Label x:Name="TxtNombrePerfil" />
                                 </StackLayout>
                                 <Label Text="Apellidos." VerticalOptions="Start"/>
                                 <StackLayout HeightRequest="35" WidthRequest="100" BackgroundColor="White" Margin="0,0,0,4">
-                                    <Label x:Name="TxtApellidoPerfil" Text="López"/>
+                                    <Label x:Name="TxtApellidoPerfil" />
                                 </StackLayout>
                                 <Label Text="Correo electronico." VerticalOptions="Start"/>
                                 <StackLayout HeightRequest="35" WidthRequest="100" BackgroundColor="White" Margin="0,0,0,4">
-                                    <Label x:Name="TxtcorreoPerfil" Text="soporte.ti@kenworthdeleste.com.mx"/>
+                                    <Label x:Name="TxtcorreoPerfil" />
                                 </StackLayout>
 
                                 <Button Text="✍" FontSize="37" WidthRequest="50" VerticalOptions="End" HorizontalOptions="End"/>

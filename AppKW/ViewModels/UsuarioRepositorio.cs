@@ -26,12 +26,21 @@ namespace AppKW.ViewModels
         {
             authProvider = new FirebaseAuthProvider(new FirebaseConfig(webAPIKey));
         }
-        public async Task<bool> Resgister(string nombre, string correo, string contrasena)
+        public async Task<bool> Resgister(string nombre, string apellido, string correo, string contrasena)
         {
             var token = await authProvider.CreateUserWithEmailAndPasswordAsync(correo, contrasena, nombre, true);
             
             if (!string.IsNullOrEmpty(token.FirebaseToken))
             {
+
+                RegistroModel newUser = new RegistroModel();
+                newUser.Uid = token.User.LocalId;
+                newUser.nombre = nombre;
+                newUser.apellido = apellido;
+                newUser.correo = correo;
+                //GUARDAR DATOS EN FIRESTORE
+                await saveData(newUser);
+
                 return true;
             }
             
@@ -61,6 +70,7 @@ namespace AppKW.ViewModels
 
             //Console.WriteLine(domain[1]);
 
+            // Guardar instancia del usuario (email, token, name)
             if (userCredential.User.IsEmailVerified)
             {
                 if(!string.IsNullOrEmpty(userCredential.FirebaseToken))
@@ -76,15 +86,21 @@ namespace AppKW.ViewModels
             return "";
         }
 
-        //Guardar datos del usuario
-        public async Task<bool> Save(RegistroModel registro)
+        public async Task<RegistroModel> getUserById(string id)
         {
-           var data = await firebaseClient.Child(nameof(RegistroModel)).PostAsync(JsonConvert.SerializeObject(registro));
-            if (!string.IsNullOrEmpty(data.Key))
-            {
-                return true;
-            }
-            return false;
+            //string id = "-NWDuv4XNlZRDeaHLAVY";
+            return (await firebaseClient.Child("users" + "/" + id).OnceSingleAsync<RegistroModel>());
+        }
+
+        //Guardar datos del usuario
+        public async Task<bool> saveData(RegistroModel user)
+        {
+            var result = await firebaseClient.Child("users").PostAsync(JsonConvert.SerializeObject(user));
+            Console.WriteLine($"RESULTADO: {result.Key}");
+
+            await SecureStorage.SetAsync("key", result.Key);
+
+            return true;
         }
 
         //Recuperar contraseña
@@ -137,6 +153,28 @@ namespace AppKW.ViewModels
             }
             return false;
         }
+
+        public async Task<FirebaseAuthLink> sendRefreshToken(string auth)
+        {
+            FirebaseAuth authObj = JsonConvert.DeserializeObject<FirebaseAuth>(auth);
+
+            FirebaseAuthLink result = await authProvider.RefreshAuthAsync(authObj);
+            return result;
+        }
+
+        public async Task<FirebaseAuthLink> getDataUser()
+        {
+            string user = await SecureStorage.GetAsync("userObj");
+            if (!string.IsNullOrEmpty(user))
+            {
+                FirebaseAuthLink userData = JsonConvert.DeserializeObject<FirebaseAuthLink>(user);
+                return userData;
+            }
+
+            return null;
+        }
+
+      
 
     }
 }

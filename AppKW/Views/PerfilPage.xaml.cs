@@ -1,6 +1,7 @@
 ﻿using AppKW.Models;
 using AppKW.ViewModels;
 using Firebase.Auth;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -37,12 +38,30 @@ namespace AppKW.Views
         protected override async void OnAppearing()
         {
             base.OnAppearing();
-            string token = await SecureStorage.GetAsync("token");
-            User userInfo = await _usuarioRepositorio.authProvider.GetUserAsync(token);
 
-            String name = userInfo.DisplayName;
-            String email = userInfo.Email;
-            String lastName = userInfo.LastName;
+            FirebaseAuthLink dataUser = await _usuarioRepositorio.getDataUser();
+
+            if (dataUser != null)
+            {
+                string name = dataUser.User.DisplayName;
+                string email = dataUser.User.Email;
+                string lastname = dataUser.User.LastName;
+                string Uid = dataUser.User.LocalId;
+
+                TxtNombrePerfil.Text = name;
+                TxtcorreoPerfil.Text = email;
+                TxtApellidoPerfil.Text = lastname;
+
+            }
+
+            string key = await SecureStorage.GetAsync("key");
+
+            RegistroModel user = await _usuarioRepositorio.getUserById(dataUser.User.LocalId);
+
+
+
+            await DisplayAlert("Alerta de id", JsonConvert.SerializeObject(user), "ok");
+            
         }
 
         public async void cerrarSesion(object sender, EventArgs e)
