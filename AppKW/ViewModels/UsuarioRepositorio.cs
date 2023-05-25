@@ -22,45 +22,48 @@ namespace AppKW.ViewModels
         {
             FirebaseAuthLink user = await authProvider.CreateUserWithEmailAndPasswordAsync(correo, contrasena, nombre, true);
         }
-
-        public async Task<string> SignIn(string correo, string contrasena)
+        public async Task<FirebaseAuthLink> SignIn(string correo, string contrasena)
         {
-            var userCredential = await authProvider.SignInWithEmailAndPasswordAsync(correo, contrasena);
+            FirebaseAuthLink auth = await authProvider.SignInWithEmailAndPasswordAsync(correo, contrasena);
 
-            string userEmail = userCredential.User.Email;
+            string email = auth.User.Email;
 
+            assignRole(email);
+
+            if(!auth.User.IsEmailVerified)
+            {
+                return null;
+            }
+
+            string userObj = JsonConvert.SerializeObject(auth);
+
+            await SecureStorage.SetAsync("userObj", userObj); // auth
+            await SecureStorage.SetAsync("token", auth.FirebaseToken); // token
+            return auth;
+        }
+        public async Task ResetPassword(string correo)
+        {
+            await authProvider.SendPasswordResetEmailAsync(correo);
+        }
+        private async void assignRole(string email)
+        {
             char delimitador = '@';
 
-            string[] domain = userEmail.Split(delimitador);
-            
-            if (!string.IsNullOrEmpty(domain[1]) && domain[1] == "kenworthdeleste.com.mx") // cambiar dominio
+            string[] domain = email.Split(delimitador);
+
+            // Validar si es empleado o cliente
+            if (!string.IsNullOrEmpty(domain[1]) && domain[1] == "kenworthdeleste.com.mx")
             {
-                await SecureStorage.SetAsync("role", "Employee"); //usuario Trabajador
+                await SecureStorage.SetAsync("role", "Employee");
             }
-            //if (!string.IsNullOrEmpty(domain[1]) && domain[1] == "gmail.com") // cambiar dominio
             else
             {
-                await SecureStorage.SetAsync("role", "User"); //Usuario registrado
+                await SecureStorage.SetAsync("role", "User");
             }
-
-
-            //Console.WriteLine(domain[1]);
-
-            // Guardar instancia del usuario (email, token, name)
-            if (userCredential.User.IsEmailVerified)
-            {
-                if(!string.IsNullOrEmpty(userCredential.FirebaseToken))
-                {
-                    string userObj = JsonConvert.SerializeObject(userCredential);
-
-                    await SecureStorage.SetAsync("userObj", userObj);
-
-                    return userCredential.FirebaseToken;
-                }
-            }
-            
-            return "";
         }
+
+
+
 
         public async Task<RegistroModel> getUserById(string id)
         {
@@ -80,11 +83,7 @@ namespace AppKW.ViewModels
         }
 
         //Recuperar contraseña
-        public async Task<bool>ResetPassword(string correo)
-        {
-            await authProvider.SendPasswordResetEmailAsync(correo);
-            return true;
-        }
+        
 
         public async Task<bool>Guardar()
         {
@@ -149,8 +148,5 @@ namespace AppKW.ViewModels
 
             return null;
         }
-
-      
-
     }
 }

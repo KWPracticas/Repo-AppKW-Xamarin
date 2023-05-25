@@ -21,24 +21,24 @@ namespace AppKW.Views
 
         public async void Button_SendLink(object sender, EventArgs e)
         {
-            string correo = TxtEmail.Text;
-            if (string.IsNullOrEmpty(correo))
+            try
             {
-                await DisplayAlert("Mensaje", "Por favor introdusca correo electronico valido", "Ok");
-                return;
-            }
+                string correo = TxtEmail.Text;
 
-            bool isSend = await _usuarioRepositorio.ResetPassword(correo.Trim());
-            if (isSend)
-            {
-                await DisplayAlert("Restaurar Contraseña", "Se envio elance a correo electronico para recuperar contraseña", "Listo");
+                if(string.IsNullOrEmpty(correo))
+                {
+                    await DisplayAlert("Error", "Escribe una dirección de correo electrónico", "Aceptar");
+                    return;
+                }
+
+                await _usuarioRepositorio.ResetPassword(correo.Trim());
+                await DisplayAlert("Restaurar contraseña", "Enviamos un enlace a tu correo electrónico para restablecer tu cuenta", "Aceptar");
                 Clear();
             }
-            else
+            catch 
             {
-                await DisplayAlert("Restaurar coontraseña", "El link fallo", "Ok");
+                await DisplayAlert("Error", "Algo salió mal, inténtalo más tarde", "Aceptar");
             }
-
         }
 
         public void Clear()
