@@ -25,9 +25,8 @@ namespace AppKW.Views
             
         }
 
-
-
-        public async void ButtonRegister_Clicked(object sender, EventArgs e)
+        //Registrar un nuevo usuario
+        public async void btnRegister(object sender, EventArgs e)
         {
             try
             {
@@ -36,76 +35,59 @@ namespace AppKW.Views
                 string correo = TxtEmail.Text;
                 string contrasena = TxtPassword.Text;
                 string confirmarcontrasena = TxtConfirmPass.Text;
-                //Validaciones de formulario de regstro de usuario
+
+                // Validaciones
                 if (String.IsNullOrEmpty(nombre))
                 {
-                    await DisplayAlert("Advertencia", "Tipo nombre", "Ok");
+                    await DisplayAlert("Error", "Escribe tu nombre", "Aceptar");
                     return;
                 }
                 if (String.IsNullOrEmpty(apellido))
                 {
-                    await DisplayAlert("Advertencia", "Type apellido", "Ok");
+                    await DisplayAlert("Error", "Escribe tu apellido", "Aceptar");
                     return;
                 }
                 if (String.IsNullOrEmpty(correo))
                 {
-                    await DisplayAlert("Advertencia", "Type correo", "Ok");
-                    return;
-                }
-                if (contrasena.Length < 8)
-                {
-                    await DisplayAlert("Advertencia", "Contraseña mayor a 8 caraceres", "Ok");
+                    await DisplayAlert("Error", "Escribe tu correo electrónico", "Aceptar");
                     return;
                 }
                 if (String.IsNullOrEmpty(contrasena))
                 {
-                    await DisplayAlert("Advertencia", "Type contraseña", "Ok");
+                    await DisplayAlert("Error", "Escribe una contraseña", "Aceptar");
+                    return;
+                }
+                if (contrasena.Length < 8)
+                {
+                    await DisplayAlert("Error", "La contraseña debe ser de al menos 8 caracteres", "Aceptar");
                     return;
                 }
                 if (String.IsNullOrEmpty(confirmarcontrasena))
                 {
-                    await DisplayAlert("Advertencia", "Type confirmar contraseña", "Ok");
+                    await DisplayAlert("Error", "Confirma tu contraseña", "Aceptar");
                     return;
                 }
                 if (contrasena != confirmarcontrasena)
                 {
-                    await DisplayAlert("Advertencia", "La contraseña no coincide", "Ok");
+                    await DisplayAlert("Error", "Las contraseñas no coinciden", "Aceptar");
                     return;
                 }
 
+                await _userRepository.Register(correo.Trim(), contrasena.Trim(), nombre.Trim());
 
+                await DisplayAlert("Registro de usuario", "Se envió un enlace de verificación a su correo electrónico", "Aceptar");
+                await Shell.Current.GoToAsync($"//{nameof(LoginPage)}");
 
-                //Validar si el registro se completo o fallo
-                bool isSave = await _userRepository.Resgister(nombre.Trim(), apellido.Trim(), correo.Trim(), contrasena.Trim());
-                if (isSave)
-                {
-                    await DisplayAlert("Registro exitoso", "Se envió un enlace de verificación a tu correo.", "Ok");
-                    //dirigir al Login  
-                    await Shell.Current.GoToAsync($"//{nameof(LoginPage)}");
-                }
-                else
-                {
-                    await DisplayAlert("Resgistro de usuario", "Registro fallido", "Ok");
-                    Clear();
-                } 
             }
-            //Validacion de si el correo exite en la base de datos
             catch (Exception exception)
             {
                 if (exception.Message.Contains("EMAIL_EXISTS"))
                 {
-                    await DisplayAlert("Alerta", "Correo ya existente", "Ok");
-                    Clear();
-                }
-                /*if (exception.Message.Contains("INVALID_EMAIL")) 
+                    await DisplayAlert("Error", "Ya existe una cuenta creada con esa dirección de correo electrónico", "Aceptar");
+                } else
                 {
-                    await DisplayAlert("Warning", "Tiene espacios en blanco al escribir el correo", "Ok");
-                }*/
-                else
-                {
-                    await DisplayAlert("Error", exception.Message, "Ok");
+                    await DisplayAlert("Error", "Algo salió mal, inténtalo más tarde", "Aceptar");
                 }
-
             }
         } 
 
@@ -117,16 +99,6 @@ namespace AppKW.Views
         private void ImageButtonTwitter(object sender, EventArgs e)
         {
             Launcher.OpenAsync(new System.Uri("https://twitter.com/KenworthdelEste"));
-        }
-
-        //Metodo para limpiar
-        public void Clear()
-        {
-            TxtName.Text = string.Empty;
-            TxtLastName.Text = string.Empty;
-            TxtEmail.Text = string.Empty;
-            TxtPassword.Text = string.Empty;
-            TxtConfirmPass.Text = string.Empty;
         }
     }
 }

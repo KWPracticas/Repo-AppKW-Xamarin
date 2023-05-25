@@ -120,7 +120,7 @@
                             <Button Text="R E G I S T R A R S E" 
                                     Margin="0,10,0,5" 
                                     x:Name="ButtonRegister" 
-                                    Clicked="ButtonRegister_Clicked"
+                                    Clicked="btnRegister"
                                     BackgroundColor="#d02030"
                                     TextColor="White" 
                                     FontAttributes="Bold" 

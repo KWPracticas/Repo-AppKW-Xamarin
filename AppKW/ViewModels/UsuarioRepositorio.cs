@@ -1,50 +1,26 @@
 ﻿using AppKW.Models;
-using AppKW.Views;
 using Firebase.Auth;
 using Firebase.Database;
-using Firebase.Database.Query;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Http;
-using System.Text;
 using System.Threading.Tasks;
 using Xamarin.Essentials;
-using Xamarin.Forms;
 
 namespace AppKW.ViewModels
 {
     class UsuarioRepositorio
     {
-        FirebaseClient firebaseClient = new FirebaseClient("https://appkw-67b39-default-rtdb.firebaseio.com/");
-        static string webAPIKey = "AIzaSyA9YNZpoGoOmy18G8aUA84VmIcmcmXOFAE";
-        public FirebaseAuthProvider authProvider; 
+        private FirebaseClient firebaseClient = new FirebaseClient("https://appkw-67b39-default-rtdb.firebaseio.com/");
+        private static string webAPIKey = "AIzaSyA9YNZpoGoOmy18G8aUA84VmIcmcmXOFAE";
+        private FirebaseAuthProvider authProvider; 
 
         public UsuarioRepositorio()
         {
             authProvider = new FirebaseAuthProvider(new FirebaseConfig(webAPIKey));
         }
-        public async Task<bool> Resgister(string nombre, string apellido, string correo, string contrasena)
+        public async Task Register(string correo, string contrasena, string nombre)
         {
-            var token = await authProvider.CreateUserWithEmailAndPasswordAsync(correo, contrasena, nombre, true);
-            
-            if (!string.IsNullOrEmpty(token.FirebaseToken))
-            {
-
-                RegistroModel newUser = new RegistroModel();
-                newUser.Uid = token.User.LocalId;
-                newUser.nombre = nombre;
-                newUser.apellido = apellido;
-                newUser.correo = correo;
-                //GUARDAR DATOS EN FIRESTORE
-                await saveData(newUser);
-
-                return true;
-            }
-            
-            return false;
+            FirebaseAuthLink user = await authProvider.CreateUserWithEmailAndPasswordAsync(correo, contrasena, nombre, true);
         }
 
         public async Task<string> SignIn(string correo, string contrasena)
