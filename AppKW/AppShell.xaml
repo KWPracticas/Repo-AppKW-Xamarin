@@ -89,15 +89,15 @@
         <ShellContent ContentTemplate="{DataTemplate local:StartPage}"></ShellContent>
     </ShellItem>
 
-    <!-- Usuarios Invitado -->    
     <FlyoutItem Route="inicio" Title="Inicio" FlyoutIcon="icon_home" IsVisible="{Binding IsInvitado}">
         <ShellContent Route="Inicio" ContentTemplate="{DataTemplate local:Inicio}" />
     </FlyoutItem>
 
-    <FlyoutItem Title="Mi perfil" Icon="icon_perfil.png" IsVisible="{Binding IsMiperfil}">
+    <FlyoutItem Title="Mi perfil" Icon="icon_perfil.png" IsVisible="{Binding IsUser}">
         <ShellContent Route="UnidadesPage" ContentTemplate="{DataTemplate local:PerfilPage}" />
     </FlyoutItem>
     
+    <!-- Usuarios Invitado -->
     <FlyoutItem Title="Unidades" Icon="icon_units" IsVisible="{Binding IsInvitado}">
         <ShellContent Route="UnidadesPage" ContentTemplate="{DataTemplate local:Unidades}" />
     </FlyoutItem>
@@ -133,8 +133,8 @@
     
     
     <!-- Usuarios Empleados -->
-    <FlyoutItem Title="Mi Perfil" Icon="icon_perfil.png" IsVisible="{Binding IsEmployee}">
-        <ShellContent Route="PerfilPage"  ContentTemplate="{DataTemplate local:PerfilPage}" />
+    <FlyoutItem Route="empleado" Title="Mi Perfil" Icon="icon_perfil.png" IsVisible="{Binding IsEmployee}">
+        <ShellContent Route="PerfilPage"  ContentTemplate="{DataTemplate local:PerfilPage}"/>
     </FlyoutItem>
     
     <FlyoutItem Title="Encuestas" Icon="icon_encuestas.png" IsVisible="{Binding IsEmployee}">

@@ -76,32 +76,12 @@ namespace AppKW.Views
 
 
                 //Validar si el registro se completo o fallo
-                bool isSave = await _userRepository.Resgister(nombre.Trim(), correo.Trim(), contrasena.Trim());
+                bool isSave = await _userRepository.Resgister(nombre.Trim(), apellido.Trim(), correo.Trim(), contrasena.Trim());
                 if (isSave)
                 {
-                    RegistroModel registro = new RegistroModel();
-                    registro.nombre = nombre.Trim();
-                    registro.apellido = apellido.Trim();
-                    registro.correo = correo.Trim();
-
-                    //Validar si se agregaron los datos
-                    var isSaved = await _userRepository.Save(registro);
-                    if (isSaved)
-                    {
-                        //await DisplayAlert("Informacion", "Registro exito", "Ok");
-                        
-                        await DisplayAlert("Registro exitoso", "Se envió un enlace de verificación a tu correo.", "Ok");
-                        //dirigir al Login  
-                        await Shell.Current.GoToAsync($"//{nameof(LoginPage)}");
-                    }
-                    else
-                    {
-                        await DisplayAlert("Error", "No funciono", "Ok");
-                        Clear();
-                    }
-
-
-
+                    await DisplayAlert("Registro exitoso", "Se envió un enlace de verificación a tu correo.", "Ok");
+                    //dirigir al Login  
+                    await Shell.Current.GoToAsync($"//{nameof(LoginPage)}");
                 }
                 else
                 {

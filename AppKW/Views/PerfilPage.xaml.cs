@@ -1,6 +1,7 @@
 ﻿using AppKW.Models;
 using AppKW.ViewModels;
 using Firebase.Auth;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -37,12 +38,27 @@ namespace AppKW.Views
         protected override async void OnAppearing()
         {
             base.OnAppearing();
-            string token = await SecureStorage.GetAsync("token");
-            User userInfo = await _usuarioRepositorio.authProvider.GetUserAsync(token);
+            string key = await SecureStorage.GetAsync("key");
 
-            String name = userInfo.DisplayName;
-            String email = userInfo.Email;
-            String lastName = userInfo.LastName;
+            var user = await _usuarioRepositorio.getUserById(key);
+            var jsjsj = JsonConvert.SerializeObject(key);
+            Console.WriteLine("DataUID" + jsjsj);
+            
+            FirebaseAuthLink dataUser = await _usuarioRepositorio.getDataUser();
+
+
+
+            if (dataUser != null)
+            {
+                string name = dataUser.User.DisplayName;
+                string email = dataUser.User.Email;
+                string Uid = dataUser.User.LocalId;
+
+                TxtNombrePerfil.Text = name;
+                TxtcorreoPerfil.Text = email;
+                TxtApellidoPerfil.Text = user.apellido;
+
+            }     
         }
 
         public async void cerrarSesion(object sender, EventArgs e)
@@ -50,5 +66,6 @@ namespace AppKW.Views
             SecureStorage.RemoveAll();
             await Navigation.PushAsync(new StartPage());
         }
+
     }
 }

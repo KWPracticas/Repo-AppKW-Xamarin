@@ -32,6 +32,7 @@ namespace AppKW.ViewModels
                 IsUser = true;
                 IsInvitado = true;
                 IsMiperfil = true;
+                IsEmployee = false;
             });
             MessagingCenter.Subscribe<AppShell>(this, "invitado", (sender) =>
             {
@@ -52,6 +53,7 @@ namespace AppKW.ViewModels
                 IsUser = true;
                 IsInvitado = true;
                 IsMiperfil = true;
+                IsEmployee = false;
             });
         }
     }
