@@ -1,6 +1,11 @@
 ﻿using AppKW.Models;
 using Firebase.Auth;
 using Firebase.Database;
+using Firebase.Database.Http;
+using Firebase.Database.Extensions;
+using Firebase.Database.Query;
+using Firebase.Database.Offline;
+using Firebase.Database.Streaming;
 using FirebaseAdmin;
 using Google.Cloud.Firestore;
 using Newtonsoft.Json;
@@ -39,6 +44,11 @@ namespace AppKW.ViewModels
                 newUser.correo = correo;
                 //GUARDAR DATOS EN FIRESTORE
                 await saveData(newUser);
+
+
+
+
+
 
                 return true;
             }
@@ -94,6 +104,7 @@ namespace AppKW.ViewModels
         //Guardar datos del usuario
         public async Task<bool> saveData(RegistroModel user)
         {
+
             var result = await firebaseClient.Child("users").PostAsync(JsonConvert.SerializeObject(user));
             Console.WriteLine($"RESULTADO: {result.Key}");
 
@@ -115,6 +126,7 @@ namespace AppKW.ViewModels
             return true;
 
         }
+
         //Get ID
         /* public async Task<RegistroModel> GetById(string id)
          {
@@ -172,6 +184,7 @@ namespace AppKW.ViewModels
 
             return null;
         }
+
 
     }
 }
