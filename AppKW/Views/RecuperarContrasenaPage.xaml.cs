@@ -28,17 +28,15 @@ namespace AppKW.Views
                 return;
             }
 
-            bool isSend = await _usuarioRepositorio.ResetPassword(correo.Trim());
-            if (isSend)
+            try
             {
+                await _usuarioRepositorio.resetPassword(correo.Trim());
                 await DisplayAlert("Restaurar Contraseña", "Se envio elance a correo electronico para recuperar contraseña", "Listo");
                 Clear();
-            }
-            else
+            } catch (Exception ex)
             {
                 await DisplayAlert("Restaurar coontraseña", "El link fallo", "Ok");
             }
-
         }
 
         public void Clear()

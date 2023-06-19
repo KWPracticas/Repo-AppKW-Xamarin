@@ -30,7 +30,7 @@
 
                             </StackLayout>
 
-                            <Button Text="Cerrar Sesión" Clicked="cerrarSesion" />
+                            <Button Text="Cerrar Sesión" Clicked="btnSignOut" />
                         </StackLayout>
                     </ScrollView>
                 </Frame>

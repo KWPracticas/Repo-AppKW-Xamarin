@@ -6,15 +6,10 @@ namespace AppKW.Models
 {
     public class User
     {
-        public string Uid { get; set; }
-        public string Nombre { get; set; }
-        public string Apellido { get; set; }
-        public string Correo { get; set; }
-    }
-
-    public class RespuestaHttp
-    {
-        public Dictionary<string, User> Datos { get; set; }
-
+        public string uid { get; set; }
+        public string role { get; set; }
+        public string name { get; set; }
+        public string lastname { get; set; }
+        public string email { get; set; }
     }
 }

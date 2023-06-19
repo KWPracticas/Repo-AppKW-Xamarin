@@ -34,7 +34,7 @@ namespace AppKW.ViewModels
                 IsMiperfil = true;
                 IsEmployee = false;
             });
-            MessagingCenter.Subscribe<AppShell>(this, "invitado", (sender) =>
+            MessagingCenter.Subscribe<AppShell>(this, "Invitado", (sender) =>
             {
                 IsInvitado = true;
                 IsUser = false;

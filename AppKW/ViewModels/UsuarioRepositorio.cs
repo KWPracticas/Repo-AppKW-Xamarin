@@ -1,190 +1,184 @@
-﻿using AppKW.Models;
-using Firebase.Auth;
+﻿using Firebase.Auth;
 using Firebase.Database;
-using Firebase.Database.Http;
-using Firebase.Database.Extensions;
-using Firebase.Database.Query;
-using Firebase.Database.Offline;
-using Firebase.Database.Streaming;
-using FirebaseAdmin;
-using Google.Cloud.Firestore;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Security.Cryptography;
+using System.Linq;
+using System.Net.Http;
 using System.Threading.Tasks;
 using Xamarin.Essentials;
-using Xamarin.Forms;
-using Xamarin.Forms.BackgroundVideoView;
+using User = AppKW.Models.User;
 
 namespace AppKW.ViewModels
 {
     class UsuarioRepositorio
     {
-        FirebaseClient firebaseClient = new FirebaseClient("https://appkw-67b39-default-rtdb.firebaseio.com/");
-        static string webAPIKey = "AIzaSyA9YNZpoGoOmy18G8aUA84VmIcmcmXOFAE";
-        public FirebaseAuthProvider authProvider;
+        private FirebaseClient firebaseClient = new FirebaseClient("https://appkw-67b39-default-rtdb.firebaseio.com/");
+        private const string webAPIKey = "AIzaSyA9YNZpoGoOmy18G8aUA84VmIcmcmXOFAE";
+        private FirebaseAuthProvider authProvider;
 
         public UsuarioRepositorio()
         {
             authProvider = new FirebaseAuthProvider(new FirebaseConfig(webAPIKey));
         }
-        public async Task<bool> Resgister(string nombre, string apellido, string correo, string contrasena)
+
+        public async Task register(string name, string lastname, string email, string password)
         {
-            var token = await authProvider.CreateUserWithEmailAndPasswordAsync(correo, contrasena, nombre, true);
+            FirebaseAuthLink result = await authProvider.CreateUserWithEmailAndPasswordAsync(email, password, name, true);
+
+            string role = assignRole(result.User.Email);
+
+            User user = new User();
+            user.uid = result.User.LocalId;
+            user.role = role;
+            user.name = name;
+            user.lastname = lastname;
+            user.email = email;
+
+            await saveUserInRealtimeDatabase(user);
+        }
+
+        private async Task saveUserInRealtimeDatabase(User user)
+        {
+            await firebaseClient.Child("users").PostAsync(JsonConvert.SerializeObject(user));
+        }
+
+        public async Task resetPassword(string email)
+        {
+            await authProvider.SendPasswordResetEmailAsync(email);
+        }
+
+        public async Task<FirebaseAuthLink> signIn(string email, string password)
+        {
+            FirebaseAuthLink result = await authProvider.SignInWithEmailAndPasswordAsync(email, password);
             
-            if (!string.IsNullOrEmpty(token.FirebaseToken))
+            if (result.User.IsEmailVerified)
             {
-
-                RegistroModel newUser = new RegistroModel();
-                newUser.Uid = token.User.LocalId;
-                newUser.nombre = nombre;
-                newUser.apellido = apellido;
-                newUser.correo = correo;
-                //GUARDAR DATOS EN FIRESTORE
-                await saveData(newUser);
-
-
-
-
-
-
-                return true;
-            }
-            
-            return false;
-        }
-
-        public async Task<string> SignIn(string correo, string contrasena)
-        {
-            var userCredential = await authProvider.SignInWithEmailAndPasswordAsync(correo, contrasena);
-
-            string userEmail = userCredential.User.Email;
-
-            char delimitador = '@';
-
-            string[] domain = userEmail.Split(delimitador);
-            
-            if (!string.IsNullOrEmpty(domain[1]) && domain[1] == "kenworthdeleste.com.mx") // cambiar dominio
-            {
-                await SecureStorage.SetAsync("role", "Employee"); //usuario Trabajador
-            }
-            //if (!string.IsNullOrEmpty(domain[1]) && domain[1] == "gmail.com") // cambiar dominio
-            else
-            {
-                await SecureStorage.SetAsync("role", "User"); //Usuario registrado
-            }
-
-
-            //Console.WriteLine(domain[1]);
-
-            // Guardar instancia del usuario (email, token, name)
-            if (userCredential.User.IsEmailVerified)
-            {
-                if(!string.IsNullOrEmpty(userCredential.FirebaseToken))
-                {
-                    string userObj = JsonConvert.SerializeObject(userCredential);
-
-                    await SecureStorage.SetAsync("userObj", userObj);
-
-                    return userCredential.FirebaseToken;
-                }
-            }
-            
-            return "";
-        }
-
-        public async Task<RegistroModel> getUserById(string id)
-        {
-            //string id = "-NWDuv4XNlZRDeaHLAVY";
-            return (await firebaseClient.Child("users" + "/" + id).OnceSingleAsync<RegistroModel>());
-        }
-
-        //Guardar datos del usuario
-        public async Task<bool> saveData(RegistroModel user)
-        {
-
-            var result = await firebaseClient.Child("users").PostAsync(JsonConvert.SerializeObject(user));
-            Console.WriteLine($"RESULTADO: {result.Key}");
-
-            await SecureStorage.SetAsync("key", result.Key);
-
-            return true;
-        }
-
-        //Recuperar contraseña
-        public async Task<bool>ResetPassword(string correo)
-        {
-            await authProvider.SendPasswordResetEmailAsync(correo);
-            return true;
-        }
-
-        public async Task<bool>Guardar()
-        {
-            await authProvider.SignInWithGoogleIdTokenAsync("123");
-            return true;
-
-        }
-
-        //Get ID
-        /* public async Task<RegistroModel> GetById(string id)
-         {
-             var authToken = await authProvider
-                 GetFreshAuthAsync();
-             var response = await firebaseClient
-                 .Child("usuarios")
-                 .Child(id)
-                 .OnceAsync<RegistroModel>(authToken.FirebaseToken);
-
-             return response.FirstOrDefault()?.Object;
-         } */
-
-        public async Task<bool> validateToken()
-        {
-
-            string token = await SecureStorage.GetAsync("token");
-
-            // HACER LO DEL REFRESH
-            if (!string.IsNullOrEmpty(token))
-            {
-                try
-                {
-                    var userInfo = await authProvider.GetUserAsync(token);
-                    
-                    if (userInfo != null)
-                    {
-                        return true;
-                    }
-                } catch(Exception e)
-                {
-                    Console.WriteLine(e);
-                    return false;
-                }
-            }
-            return false;
-        }
-
-        public async Task<FirebaseAuthLink> sendRefreshToken(string auth)
-        {
-            FirebaseAuth authObj = JsonConvert.DeserializeObject<FirebaseAuth>(auth);
-
-            FirebaseAuthLink result = await authProvider.RefreshAuthAsync(authObj);
-            return result;
-        }
-
-        public async Task<FirebaseAuthLink> getDataUser()
-        {
-            string user = await SecureStorage.GetAsync("userObj");
-            if (!string.IsNullOrEmpty(user))
-            {
-                FirebaseAuthLink userData = JsonConvert.DeserializeObject<FirebaseAuthLink>(user);
-                return userData;
+                //await assignRole(result.User.Email);
+                string userSession = JsonConvert.SerializeObject(result); // Convertir el result (.json) en un string
+                await SecureStorage.SetAsync("userSession", userSession);
+                return result;
             }
 
             return null;
         }
 
+        public async Task<bool> validateToken()
+        {
+            string userSession = await SecureStorage.GetAsync("userSession");
+            
+            if (!string.IsNullOrEmpty(userSession))
+            {
+                FirebaseAuthLink user = JsonConvert.DeserializeObject<FirebaseAuthLink>(userSession); // Convertir el string guardado en el storage a un object
+                Firebase.Auth.User result = await authProvider.GetUserAsync(user.FirebaseToken); // Obtener el usuario de firebase con el token dentro del object anterior
 
+                if (result != null)
+                {
+                    return true;
+                }
+            }
+
+            return false;
+
+        }
+
+        private string assignRole(string email)
+        {
+            char delimitador = '@';
+
+            string[] domain = email.Split(delimitador);
+
+            if (!string.IsNullOrEmpty(domain[1]) && domain[1] == "kenworthdeleste.com.mx")
+            {
+                return "Employee";
+            }
+
+            return "User";
+        }
+
+        public async Task<bool> signInWithRefreshToken()
+        {
+            string userSession = await SecureStorage.GetAsync("userSession");
+
+            if (!string.IsNullOrEmpty(userSession))
+            {
+                FirebaseAuthLink user = JsonConvert.DeserializeObject<FirebaseAuthLink>(userSession); // Convertir el string guardado en el storage a un object
+                FirebaseAuthLink result = await authProvider.RefreshAuthAsync(user);
+                if (result != null) 
+                {
+                    string newUserSession = JsonConvert.SerializeObject(result);
+                    await SecureStorage.SetAsync("userSession", newUserSession);
+                    return true;
+                } else 
+                { 
+                    return false; 
+                }
+            }
+
+            return false;
+        }
+
+        public async Task<FirebaseAuthLink> getDataUserInStorage()
+        {
+            string userSession = await SecureStorage.GetAsync("userSession");
+            if (!string.IsNullOrEmpty(userSession))
+            {
+                FirebaseAuthLink user = JsonConvert.DeserializeObject<FirebaseAuthLink>(userSession);
+                return user;
+            }
+            return null;
+        }
+
+        public async Task<string> getDataUserWithFirebase()
+        {
+            try
+            {
+                string userSession = await SecureStorage.GetAsync("userSession");
+                if (!string.IsNullOrEmpty(userSession))
+                {
+                    FirebaseAuthLink user = JsonConvert.DeserializeObject<FirebaseAuthLink>(userSession);
+                    //string uid = "EA74ElRh0YUUOnPfZdeEcVje4hp2";
+                    string uid = user.User.LocalId;
+                    string url = $"https://appkw-67b39-default-rtdb.firebaseio.com/users.json?orderBy=\"uid\"&equalTo=\"{uid}\"";
+                    HttpClient httpClient = new HttpClient();
+                    return await httpClient.GetStringAsync(url);
+                }
+
+                return null;
+
+            } catch (Exception ex)
+            { 
+                Console.WriteLine("Error: " + ex.Message);
+                return null;
+            }
+        }
+
+        public bool signOut()
+        {
+            try
+            {
+                SecureStorage.RemoveAll();
+                return true;
+            } catch(Exception ex)
+            {
+                Console.WriteLine($"Error: {ex.Message}");
+                return false;
+            }
+        }
+
+        public async Task<string> getRole()
+        {
+            try
+            {
+                string result = await getDataUserWithFirebase();
+                Dictionary<string, Models.User> jsonObject = JsonConvert.DeserializeObject<Dictionary<string, Models.User>>(result);
+                Models.User user = jsonObject.Values.FirstOrDefault();
+                return user.role;
+            }
+            catch(Exception ex)
+            {
+                return null;
+            }
+        }
     }
 }

@@ -94,7 +94,7 @@
     </FlyoutItem>
 
     <FlyoutItem Title="Mi perfil" Icon="icon_perfil.png" IsVisible="{Binding IsUser}">
-        <ShellContent Route="UnidadesPage" ContentTemplate="{DataTemplate local:PerfilPage}" />
+        <ShellContent Route="PerfilPage" ContentTemplate="{DataTemplate local:PerfilPage}" />
     </FlyoutItem>
     
     <!-- Usuarios Invitado -->
@@ -103,7 +103,7 @@
     </FlyoutItem>
 
     <FlyoutItem Title="Sucursales" Icon="icon_location.png" IsVisible="{Binding IsInvitado}">
-        <ShellContent Route="SucursalesoPage" ContentTemplate="{DataTemplate local:SucursalesPage}" />
+        <ShellContent Route="SucursalesPage" ContentTemplate="{DataTemplate local:SucursalesPage}" />
     </FlyoutItem>
 
     <FlyoutItem Title="Contacto" Icon="icon_contact.png" IsVisible="{Binding IsInvitado}">
@@ -120,15 +120,14 @@
     </FlyoutItem>
     
     <FlyoutItem Title="Carrocería" Icon="icon_carroceria.png" IsVisible="{Binding IsUser}">
-        <ShellContent Route="BuzonPage" ContentTemplate="{DataTemplate local:Carroceria}" />
+        <ShellContent Route="CarroceriaPage" ContentTemplate="{DataTemplate local:Carroceria}" />
     </FlyoutItem>
     
     <FlyoutItem Title="Servicio" Icon="icon_servicio.png" IsVisible="{Binding IsUser}">
-        <ShellContent Route="BuzonPage" ContentTemplate="{DataTemplate local:Servicio}" />
+        <ShellContent Route="ServicioPage" ContentTemplate="{DataTemplate local:Servicio}" />
     </FlyoutItem>
     
     <FlyoutItem Title="Promociones" Icon="icon_promocion.png" IsVisible="{Binding IsUser}">
-        <ShellContent Route="BuzonPage" ContentTemplate="{DataTemplate local:Promociones}" />
     </FlyoutItem>
     
     

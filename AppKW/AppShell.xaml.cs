@@ -26,21 +26,13 @@ namespace AppKW
         {
             //Validar tipo de usuario 
             string role = await SecureStorage.GetAsync("role");
-            MessagingCenter.Send<AppShell>(this,
-                (role == "User") ? "User" : "invitado"
-            );
-            Console.WriteLine("role: " + role);
+
+            if (string.IsNullOrEmpty(role))
+            {
+                MessagingCenter.Send<AppShell>(this,
+                    role = "Invitado"
+                );
+            }
         }
-        /* public async void getRole()
-         {
-             string role = await SecureStorage.GetAsync("role");
-
-             if(!string.IsNullOrEmpty(role) && role == "Employee")
-             {
-                 Empleados.IsVisible= true;
-             }
-
-             Console.WriteLine("role: " + role);
-         } */
     }
 }

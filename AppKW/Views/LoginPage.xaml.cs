@@ -1,15 +1,10 @@
 ﻿using AppKW.ViewModels;
-using Plugin.Toast;
-using Plugin.Toast.Abstractions;
+using Firebase.Auth;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using Xamarin.Essentials;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
-using static Android.Icu.Text.AlphabeticIndex;
 
 namespace AppKW.Views
 {
@@ -25,101 +20,84 @@ namespace AppKW.Views
 
         public async void BtnSignIn_Clicked(object sender, EventArgs e)
         {
-            try
+            bool isValidForm = await validateLogin(TxtEmail.Text, TxtPassword.Text);
+            if (isValidForm)
             {
-                string correo = TxtEmail.Text.Trim();
-                string contrasena = TxtPassword.Text.Trim();
-                if (String.IsNullOrEmpty(correo))
+                try
                 {
-                    await DisplayAlert("Advertencia", "introduce tu correo", "Ok");
-                    return;
-                }
-                if (String.IsNullOrEmpty(contrasena))
-                {
-                    await DisplayAlert("Advertencia", "Introduce tu contraseña", "Ok");
-                    return;
-                }
+                    FirebaseAuthLink result = await _usuarioRepositorio.signIn(TxtEmail.Text.Trim(), TxtPassword.Text.Trim());
 
-                
-                //Validación de logueo exitoso
-                string token = await _usuarioRepositorio.SignIn(correo.Trim(), contrasena.Trim()); //exyZ ""
-                                
-                if (!string.IsNullOrEmpty(token))
-                {
-                    //Guardar token en storage
-                    await SecureStorage.SetAsync("token", token);
-
-                    //Validar tipo de usuario 
-                    string role = await SecureStorage.GetAsync("role");
-                    MessagingCenter.Send<LoginPage>(this,
-                        (role == "User") ? "User" : "invitado"
-                    );
-                    MessagingCenter.Send<LoginPage>(this,
-                        (role == "Employee") ? "Employee" : "User"
-                    );
-                    Console.WriteLine("role: " + role);
-
-                    /* Checkbox
-                    bool isChecked = Recordar.IsChecked;
-
-                    if (isChecked)
+                    if (result != null)
                     {
-                        // await DisplayAlert("info", "checkbox activado", "ok");     
+                        string role = await _usuarioRepositorio.getRole();
+
+                        MessagingCenter.Send<LoginPage>(this,
+                            (role == "User") ? "User" : "Invitado"
+                        );
+                        MessagingCenter.Send<LoginPage>(this,
+                            (role == "Employee") ? "Employee" : "User"
+                        );
+
+                        if (role == "User")
+                        {
+                            await Shell.Current.GoToAsync("//inicio");
+                        }
+
+                        if (role == "Employee")
+                        {
+                            await Shell.Current.GoToAsync("//empleado");
+                        }
+
+                    } else
+                    {
+                        await DisplayAlert("Error", "El correo electrónico no se ha verificado, revisa tu bandeja de entrada o la bandeja de spam para validarlo", "Aceptar");
+                    }
+                } catch(System.Exception ex)
+                {
+                    if (ex.Message.Contains("EMAIL_NOT_FOUND"))
+                    {
+                        await DisplayAlert("Error", "No pudimos encontrar tu cuenta", "Aceptar");
+                    }
+                    else if (ex.Message.Contains("INVALID_PASSWORD"))
+                    {
+                        await DisplayAlert("Error", "La contraseña es incorrecta. Vuelve a intentarlo o haz clic en \"¿Olvidaste la contraseña?\" para restablecerla.\r\n", "Aceptar");
+                    }
+                    else if (ex.Message.Contains("INVALID_EMAIL"))
+                    {
+                        await DisplayAlert("Error", "Ingresa un correo electrónico válido", "Aceptar");
                     }
                     else
                     {
-                        await DisplayAlert("info", "checkbox desactivado", "ok");
+                        await DisplayAlert("Error", "Algo salió mal, inténtalo más tarde", "Aceptar");
                     }
-                    */
-
-                    //Redireccionar al Home
-                    if (role == "User")
-                    {
-                        await Shell.Current.GoToAsync("//inicio");
-                    }
-                    else
-                    {
-                        await Shell.Current.GoToAsync("//empleado");
-                    }
-                    
-                }
-                else
-                {
-                    await DisplayAlert("Inicio de sesión", "Su cuenta no ha sido verificada, revise su correo electrónico", "Ok");
-                }
-            }
-            catch(Exception exception) 
-            {
-                if (exception.Message.Contains("EMAIL_NOT_FOUND"))
-                {
-                    await DisplayAlert("No autorizado", "Correo no existente en la base de datos", "Ok");
-
-                }
-                else if(exception.Message.Contains("INVALID_PASSWORD"))
-                {
-                    await DisplayAlert("No autorizado", "Contraseña incorrecta", "Ok");
-                }
-                else if (exception.Message.Contains("INVALID_EMAIL"))
-                {
-                    await DisplayAlert("No autorizado", "Este correo electrónico no es válido", "Ok");
-                }
-                else 
-                {
-                    await DisplayAlert("Error", exception.Message, "Ok");
                 }
             }
             
+            
         }
-        //Metodo que direcciona a el registro desde el login
         public async void RegisterTap_Tapped(object sender, EventArgs e)
         {
             await Navigation.PushModalAsync(new Registro());
         }
-
-        //Metodo de recuperar contraseña 
         public async void ForgotTap_Tapped(object sender, EventArgs e)
         {
             await Navigation.PushModalAsync(new RecuperarContrasenaPage());
+        }
+        private async Task<bool> validateLogin(string email, string password)
+        {
+            if (string.IsNullOrEmpty(email))
+            {
+                await DisplayAlert("Error", "Ingresa una dirección de correo electrónico", "Aceptar");
+                return false;
+            }
+
+            if (string.IsNullOrEmpty(password))
+            {
+                await DisplayAlert("Error", "Ingresa una contraseña", "Aceptar");
+                return false;
+            }
+
+            return true;
         }
     }
 }

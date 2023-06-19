@@ -25,93 +25,49 @@ namespace AppKW.Views
             InitializeComponent();
         }
 
-        /* public async void Editar(string id)
-         {
-             var usuario = await _usuarioRepositorio.GetById(id);
-             if (usuario == null)
-             {
-                 await DisplayAlert("Warning", "Data not found.", "Ok");
-             }
-             usuario.Id = id;
-             usuario.nombre = TxtNombrePerfil.Text;
-
-         } */
-
         protected override async void OnAppearing()
         {
             base.OnAppearing();
+            Models.User user = await getDataUserWithFirebase();
+            TxtNombrePerfil.Text = user.name;
+            TxtApellidoPerfil.Text = user.lastname;
+            TxtcorreoPerfil.Text = user.email;
+            Console.WriteLine("User: " + user);
+        }
 
-            FirebaseAuthLink userData = await _usuarioRepositorio.getDataUser();
-
-            Dictionary<string, Models.User> user = await getUserData(userData.User.LocalId);
-
-            if (user != null)
+        public async void btnSignOut(object sender, EventArgs e)
+        {
+            bool result = _usuarioRepositorio.signOut();
+            if (result)
             {
-                foreach (var entry in user)
+                await Navigation.PushAsync(new StartPage());
+            }
+        }
+
+        // Obtener datos del usuario desde firebase
+        private async Task<Models.User> getDataUserWithFirebase()
+        {
+            string result = await _usuarioRepositorio.getDataUserWithFirebase();
+
+            if(string.IsNullOrEmpty(result))
+            {
+                Console.WriteLine("Error");
+            } else
+            {
+                Console.WriteLine("User: " + result);
+                Dictionary<string, Models.User> jsonObject = JsonConvert.DeserializeObject<Dictionary<string, Models.User>>(result);
+                Models.User user = jsonObject.Values.FirstOrDefault();
+
+                if (user != null)
                 {
-                    string clave = entry.Key;
-                    Models.User usuario = entry.Value;
-
-                    string uid = usuario.Uid;
-                    string apellido = usuario.Apellido;
-                    string correo = usuario.Correo;
-                    string nombre = usuario.Nombre;
-
-                    Console.WriteLine("Clave: " + clave);
-                    Console.WriteLine("UID: " + uid);
-                    Console.WriteLine("Apellido: " + apellido);
-                    Console.WriteLine("Correo: " + correo);
-                    Console.WriteLine("Nombre: " + nombre);
-
-                    TxtNombrePerfil.Text = nombre;
-                    TxtcorreoPerfil.Text = correo;
-                    TxtApellidoPerfil.Text = apellido;
+                    Console.WriteLine($"Email: {user.email}");
+                    Console.WriteLine($"Lastname: {user.lastname}");
+                    Console.WriteLine($"Name: {user.name}");
+                    Console.WriteLine($"Uid: {user.uid}");
+                    return user;
                 }
-            }
-            /*
-            string key = await SecureStorage.GetAsync("key");
 
-            var user = await _usuarioRepositorio.getUserById(key);
-            Console.WriteLine("DATA: " + user);
-
-            FirebaseAuthLink dataUser = await _usuarioRepositorio.getDataUser();
-
-            if (dataUser != null)
-            {
-                string name = dataUser.User.DisplayName;
-                string email = dataUser.User.Email;
-                string Uid = dataUser.User.LocalId;
-
-                TxtNombrePerfil.Text = name;
-                TxtcorreoPerfil.Text = email;
-                TxtApellidoPerfil.Text = user.apellido;
-            }
-            */
-        }
-
-        public async void cerrarSesion(object sender, EventArgs e)
-        {
-            SecureStorage.RemoveAll();
-            await Navigation.PushAsync(new StartPage());
-        }
-
-        private async Task<Dictionary<string, Models.User>> getUserData(string uid)
-        {
-            try
-            {
-                string url = $"https://appkw-67b39-default-rtdb.firebaseio.com/users.json?orderBy=\"Uid\"&equalTo=\"{uid}\"";
-
-                HttpClient httpClient = new HttpClient();
-                string response = await httpClient.GetStringAsync(url);
-
-                Dictionary<string, Models.User> respuesta = JsonConvert.DeserializeObject<Dictionary<string, Models.User>>(response);
-
-                return respuesta;
-
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine("Error: " + ex.Message);
+                return null;
             }
 
             return null;
