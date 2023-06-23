@@ -12,25 +12,19 @@
                             <StackLayout>
                                 <Image Source="icon_usuario.png" WidthRequest="150" HeightRequest="150"  HorizontalOptions="Center"/>
                                 
-                                <Label Text="Nombre." VerticalOptions="Start"/>
+                                <Label Text="Nombre" VerticalOptions="Start"/>
                                 <StackLayout HeightRequest="35" WidthRequest="100" BackgroundColor="White" Margin="0,0,0,4">
                                     <Label x:Name="TxtNombrePerfil" />
                                 </StackLayout>
-                                <Label Text="Apellidos." VerticalOptions="Start"/>
+                                <Label Text="Apellidos" VerticalOptions="Start"/>
                                 <StackLayout HeightRequest="35" WidthRequest="100" BackgroundColor="White" Margin="0,0,0,4">
                                     <Label x:Name="TxtApellidoPerfil" />
                                 </StackLayout>
-                                <Label Text="Correo electronico." VerticalOptions="Start"/>
+                                <Label Text="Correo" VerticalOptions="Start"/>
                                 <StackLayout HeightRequest="35" WidthRequest="100" BackgroundColor="White" Margin="0,0,0,4">
                                     <Label x:Name="TxtcorreoPerfil" />
                                 </StackLayout>
-
-                                <Button Text="✍" FontSize="37" WidthRequest="50" VerticalOptions="End" HorizontalOptions="End"/>
-
-
                             </StackLayout>
-
-                            <Button Text="Cerrar Sesión" Clicked="btnSignOut" />
                         </StackLayout>
                     </ScrollView>
                 </Frame>

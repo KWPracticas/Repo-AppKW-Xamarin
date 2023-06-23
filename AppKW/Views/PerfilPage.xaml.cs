@@ -1,6 +1,4 @@
-﻿using AppKW.Models;
-using AppKW.ViewModels;
-using Firebase.Auth;
+﻿using AppKW.ViewModels;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -11,8 +9,7 @@ using System.Threading.Tasks;
 using Xamarin.Essentials;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
-using static Android.Media.Session.MediaSession;
-using static Android.Provider.ContactsContract.CommonDataKinds;
+using User = AppKW.Models.User;
 
 namespace AppKW.Views
 {
@@ -28,46 +25,22 @@ namespace AppKW.Views
         protected override async void OnAppearing()
         {
             base.OnAppearing();
-            Models.User user = await getDataUserWithFirebase();
+            User user = await getUser();
             TxtNombrePerfil.Text = user.name;
             TxtApellidoPerfil.Text = user.lastname;
             TxtcorreoPerfil.Text = user.email;
-            Console.WriteLine("User: " + user);
-        }
-
-        public async void btnSignOut(object sender, EventArgs e)
-        {
-            bool result = _usuarioRepositorio.signOut();
-            if (result)
-            {
-                await Navigation.PushAsync(new StartPage());
-            }
         }
 
         // Obtener datos del usuario desde firebase
-        private async Task<Models.User> getDataUserWithFirebase()
+        private async Task<User> getUser()
         {
             string result = await _usuarioRepositorio.getDataUserWithFirebase();
 
-            if(string.IsNullOrEmpty(result))
+            if (!string.IsNullOrEmpty(result))
             {
-                Console.WriteLine("Error");
-            } else
-            {
-                Console.WriteLine("User: " + result);
-                Dictionary<string, Models.User> jsonObject = JsonConvert.DeserializeObject<Dictionary<string, Models.User>>(result);
-                Models.User user = jsonObject.Values.FirstOrDefault();
-
-                if (user != null)
-                {
-                    Console.WriteLine($"Email: {user.email}");
-                    Console.WriteLine($"Lastname: {user.lastname}");
-                    Console.WriteLine($"Name: {user.name}");
-                    Console.WriteLine($"Uid: {user.uid}");
-                    return user;
-                }
-
-                return null;
+                Dictionary<string,User> jsonObject = JsonConvert.DeserializeObject<Dictionary<string,User>>(result);
+                User user = jsonObject.Values.FirstOrDefault();
+                return user;
             }
 
             return null;
