@@ -88,6 +88,11 @@
     <TabBar>
         <ShellContent Route="StartPage" ContentTemplate="{DataTemplate local:StartPage}" />
     </TabBar>
+
+    <TabBar>
+        <ShellContent Route="LoginPage" ContentTemplate="{DataTemplate local:LoginPage}" />
+    </TabBar>
+
     <FlyoutItem Title="Inicio" Icon="icon_home.png">
         <ShellContent Route="Inicio" ContentTemplate="{DataTemplate local:Inicio}" />
     </FlyoutItem>

@@ -11,8 +11,7 @@ namespace AppKW
             InitializeComponent();
 
             DependencyService.Register<MockDataStore>();
-            MainPage = new AppShell();
-            
+            MainPage = new AppShell();            
         }
     }
 }
