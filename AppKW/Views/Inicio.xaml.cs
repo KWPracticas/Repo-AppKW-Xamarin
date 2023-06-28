@@ -14,7 +14,6 @@ namespace AppKW.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class Inicio : ContentPage
     {
-        UsuarioRepositorio _usuarioRepositorio = new UsuarioRepositorio();
         public Inicio()
         {
             InitializeComponent();
@@ -27,7 +26,6 @@ namespace AppKW.Views
                 new CarouselModel(){Title = "img 4", Url = "img4.jpg"}
             };
 
-
             Carousel.ItemsSource = carousels;
 
             Device.StartTimer(TimeSpan.FromSeconds(2), (Func<bool>)(() =>
@@ -35,14 +33,6 @@ namespace AppKW.Views
                 Carousel.Position = (Carousel.Position + 1) % carousels.Count;
                 return true;
             }));
-        }
-
-        protected override async void OnAppearing()
-        {
-            base.OnAppearing();
-            string role = await _usuarioRepositorio.getRole();
-            await DisplayAlert("Role", role, "Aceptar");
-            
         }
 
         private void DisplayFullImage_TappedMision(object sender, EventArgs e)

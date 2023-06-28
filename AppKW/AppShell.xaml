@@ -93,7 +93,15 @@
         <ShellContent Route="LoginPage" ContentTemplate="{DataTemplate local:LoginPage}" />
     </TabBar>
 
-    <FlyoutItem Title="Inicio" Icon="icon_home.png">
-        <ShellContent Route="Inicio" ContentTemplate="{DataTemplate local:Inicio}" />
+    <FlyoutItem FlyoutDisplayOptions="AsMultipleItems" Shell.TabBarIsVisible="False">
+        <ShellContent Title="Inicio" Icon="icon_home.png" Route="Inicio" ContentTemplate="{DataTemplate local:Inicio}" />
+        <ShellContent Title="Unidades" Icon="icon_units.png" Route="Unidades" ContentTemplate="{DataTemplate local:Unidades}" />
+        <ShellContent Title="Sucursales" Icon="icon_location.png" Route="Sucursales" ContentTemplate="{DataTemplate local:SucursalesPage}" />
+        <ShellContent Title="Contacto" Icon="icon_contact.png" Route="Contacto" ContentTemplate="{DataTemplate local:Contacto}" />
+        <ShellContent Title="Buzón" Icon="icon_mailbox.png" Route="Buzon" ContentTemplate="{DataTemplate local:Buzon}" />
+        <ShellContent Title="Refacciones" Icon="icon_refacciones.png" Route="Refacciones" ContentTemplate="{DataTemplate local:RefaccionesPage}" />
+        <ShellContent Title="Carrocería" Icon="icon_carroceria.png" Route="Carroceria" ContentTemplate="{DataTemplate local:Carroceria}" />
+        <ShellContent Title="Servicio" Icon="icon_servicio.png" Route="Servicio" ContentTemplate="{DataTemplate local:Servicio}" />
+        <ShellContent Title="Promociones" Icon="icon_promocion.png" Route="Promociones" ContentTemplate="{DataTemplate local:Promociones}" />
     </FlyoutItem>
 </Shell>

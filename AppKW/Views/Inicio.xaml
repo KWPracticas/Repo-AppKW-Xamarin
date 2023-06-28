@@ -4,7 +4,6 @@
              x:Class="AppKW.Views.Inicio"
              xmlns:vm="clr-namespace:AppKW.ViewModels"
              Title="{Binding Title}">
-
     <ContentPage.BindingContext>
         <vm:InicioViewModel />
     </ContentPage.BindingContext>
