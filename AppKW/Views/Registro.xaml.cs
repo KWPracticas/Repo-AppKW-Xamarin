@@ -1,4 +1,6 @@
-﻿using System;
+﻿using AppKW.Services;
+using Firebase.Auth;
+using System;
 using System.Threading.Tasks;
 using Xamarin.Essentials;
 using Xamarin.Forms;
@@ -9,6 +11,7 @@ namespace AppKW.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class Registro : ContentPage
     {
+        AuthenticationService authenticationService = new AuthenticationService();
         public Registro()
         {
             InitializeComponent();
@@ -24,7 +27,27 @@ namespace AppKW.Views
                 string email = TxtEmail.Text.Trim();
                 string password = TxtPassword.Text.Trim();
 
-                Console.WriteLine($"{name} - {lastname} - {email} - {password}");
+                try
+                {
+                    FirebaseAuthLink newUser = await authenticationService.Register(email, password, name, lastname);
+                    await DisplayAlert(Title, "Usuario registrado correctamente, revisa tu email para validarlo", "Aceptar");
+                    await Navigation.PopModalAsync();
+                } catch (Exception ex)
+                {
+                    if (ex.Message.Contains("EMAIL_EXISTS"))
+                    {
+                        await DisplayAlert("Error", "Ya existe una cuenta con ese correo electrónico", "Aceptar");
+                    }
+                    else if (ex.Message.Contains("INVALID_EMAIL"))
+                    {
+                        await DisplayAlert("Error", "Correo electrónico invalido", "Aceptar");
+                    }
+                    else
+                    {
+                        Console.WriteLine("Error register" + ex.Message);
+                        await DisplayAlert("Error", "Algo salió mal, inténtalo más tarde", "Aceptar");
+                    }
+                }
             }
         }
         private void imageButtonFacebook(object sender, EventArgs e)

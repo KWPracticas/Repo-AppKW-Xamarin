@@ -14,12 +14,12 @@ namespace AppKW.Views
 
         private async void Login(object sender, EventArgs e)
         {
-            await Navigation.PushAsync(new LoginPage());
+            await Navigation.PushModalAsync(new LoginPage());
         }
 
         private async void Register(object sender, EventArgs e)
         {
-            await Navigation.PushAsync(new Registro());
+            await Navigation.PushModalAsync(new Registro());
         }
     }
 }
