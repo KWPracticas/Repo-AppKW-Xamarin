@@ -1,4 +1,4 @@
-﻿using AppKW.ViewModels;
+﻿using AppKW.Services;
 using Firebase.Auth;
 using System;
 using System.Threading.Tasks;
@@ -11,48 +11,29 @@ namespace AppKW.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class LoginPage : ContentPage
     {
-        UsuarioRepositorio _usuarioRepositorio = new UsuarioRepositorio();
+        AuthenticationService authenticationService = new AuthenticationService();
         public LoginPage()
         {
             InitializeComponent();
-            this.BindingContext = new LoginViewModel();
         }
 
         public async void BtnSignIn_Clicked(object sender, EventArgs e)
         {
-            bool isValidForm = await validateLogin(TxtEmail.Text, TxtPassword.Text);
-            if (isValidForm)
+            bool isValid = await validateLogin(TxtEmail.Text, TxtPassword.Text);
+            if (isValid)
             {
                 try
                 {
-                    FirebaseAuthLink result = await _usuarioRepositorio.signIn(TxtEmail.Text.Trim(), TxtPassword.Text.Trim());
+                    FirebaseAuthLink result = await authenticationService.Login(TxtEmail.Text.Trim(), TxtPassword.Text.Trim());
 
                     if (result != null)
                     {
-                        string role = await _usuarioRepositorio.getRole();
-
-                        MessagingCenter.Send<LoginPage>(this,
-                            (role == "User") ? "User" : "Invitado"
-                        );
-                        MessagingCenter.Send<LoginPage>(this,
-                            (role == "Employee") ? "Employee" : "User"
-                        );
-
-                        if (role == "User")
-                        {
-                            await Shell.Current.GoToAsync("//inicio");
-                        }
-
-                        if (role == "Employee")
-                        {
-                            await Shell.Current.GoToAsync("//empleado");
-                        }
-
+                        await Shell.Current.GoToAsync($"//{nameof(Inicio)}");
                     } else
                     {
                         await DisplayAlert("Error", "El correo electrónico no se ha verificado, revisa tu bandeja de entrada o la bandeja de spam para validarlo", "Aceptar");
                     }
-                } catch(System.Exception ex)
+                } catch(Exception ex)
                 {
                     if (ex.Message.Contains("EMAIL_NOT_FOUND"))
                     {
@@ -68,12 +49,11 @@ namespace AppKW.Views
                     }
                     else
                     {
+                        Console.WriteLine(ex.Message);
                         await DisplayAlert("Error", "Algo salió mal, inténtalo más tarde", "Aceptar");
                     }
                 }
             }
-            
-            
         }
         public async void RegisterTap_Tapped(object sender, EventArgs e)
         {
@@ -83,6 +63,7 @@ namespace AppKW.Views
         {
             await Navigation.PushModalAsync(new RecuperarContrasenaPage());
         }
+
         private async Task<bool> validateLogin(string email, string password)
         {
             if (string.IsNullOrEmpty(email))
@@ -94,6 +75,12 @@ namespace AppKW.Views
             if (string.IsNullOrEmpty(password))
             {
                 await DisplayAlert("Error", "Ingresa una contraseña", "Aceptar");
+                return false;
+            }
+
+            if (password.Length < 8)
+            {
+                await DisplayAlert("Error", "La contraseña debe ser igual o mayor a 8 caracteres", "Aceptar");
                 return false;
             }
 

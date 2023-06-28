@@ -31,7 +31,7 @@ namespace AppKW.Views
                 {
                     FirebaseAuthLink newUser = await authenticationService.Register(email, password, name, lastname);
                     await DisplayAlert(Title, "Usuario registrado correctamente, revisa tu email para validarlo", "Aceptar");
-                    await Navigation.PopModalAsync();
+                    await Shell.Current.GoToAsync($"//{nameof(LoginPage)}");
                 } catch (Exception ex)
                 {
                     if (ex.Message.Contains("EMAIL_EXISTS"))

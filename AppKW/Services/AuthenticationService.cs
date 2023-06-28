@@ -67,5 +67,17 @@ namespace AppKW.Services
                 return null;
             }
         }
+
+        public async Task<FirebaseAuthLink> Login(string email, string password)
+        {
+            FirebaseAuthLink user = await firebaseAuthProvider.SignInWithEmailAndPasswordAsync(email, password);
+
+            if (!user.User.IsEmailVerified)
+            {
+                return null;
+            }
+
+            return user;
+        }
     }
 }
