@@ -1,8 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:controls="clr-namespace:Xamarin.Forms.BackgroundVideoView;assembly=Xamarin.Forms.BackgroundVideoView"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+             xmlns:controls="clr-namespace:Xamarin.Forms.BackgroundVideoView;assembly=Xamarin.Forms.BackgroundVideoView"
              x:Class="AppKW.Views.StartPage"
              Shell.NavBarIsVisible="False"
              Shell.FlyoutBehavior="Disabled"
@@ -12,22 +11,12 @@
         <controls:BackgroundVideoView Source="video_fondo.mp4" Loop="True"
                         HorizontalOptions="Fill" VerticalOptions="Fill" >
             <controls:BackgroundVideoView.ViewContent>
-                <!--YOUR CONTENT-->
                 <StackLayout Padding="10,0,10,0" VerticalOptions="Center" BackgroundColor="Transparent">
-                    <Button VerticalOptions="Center" Text="Iniciar sesión" Clicked="Login_Button_Clicked" />
-                    <Button VerticalOptions="Center" Text="Registrarse" Clicked="Register_Button_Clicked" BackgroundColor="#E74C3C"/>
-                    <Button VerticalOptions="Center" Text="Invitado" Clicked="Guest_Button_Clicked" BackgroundColor="#95A5A6"/>
+                    <Button VerticalOptions="Center" Text="Iniciar sesión" Clicked="Login"/>
+                    <Button VerticalOptions="Center" Text="Registrarse" BackgroundColor="#E74C3C" Clicked="Register"/>
+                    <Button VerticalOptions="Center" Text="Invitado" BackgroundColor="#95A5A6"/>
                 </StackLayout>
             </controls:BackgroundVideoView.ViewContent>
         </controls:BackgroundVideoView>
-        
-        <!--
-        <StackLayout Padding="10,0,10,0" VerticalOptions="Center">
-            <Button VerticalOptions="Center" Text="Iniciar sesión" Clicked="Login_Button_Clicked" />
-            <Button VerticalOptions="Center" Text="Registrarse" Clicked="Register_Button_Clicked" BackgroundColor="#E74C3C"/>
-            <Button VerticalOptions="Center" Text="Invitado" Clicked="Guest_Button_Clicked" BackgroundColor="#95A5A6"/>
-        </StackLayout>
-        --> 
     </ContentPage.Content>
 </ContentPage>
-    
