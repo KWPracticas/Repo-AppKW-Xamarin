@@ -14,15 +14,23 @@
                                 
                                 <Label Text="Nombre" VerticalOptions="Start"/>
                                 <StackLayout HeightRequest="35" WidthRequest="100" BackgroundColor="White" Margin="0,0,0,4">
-                                    <Label x:Name="TxtNombrePerfil" />
+                                    <Label x:Name="TxtName" />
                                 </StackLayout>
                                 <Label Text="Apellidos" VerticalOptions="Start"/>
                                 <StackLayout HeightRequest="35" WidthRequest="100" BackgroundColor="White" Margin="0,0,0,4">
-                                    <Label x:Name="TxtApellidoPerfil" />
+                                    <Label x:Name="TxtLastname" />
                                 </StackLayout>
                                 <Label Text="Correo" VerticalOptions="Start"/>
                                 <StackLayout HeightRequest="35" WidthRequest="100" BackgroundColor="White" Margin="0,0,0,4">
-                                    <Label x:Name="TxtcorreoPerfil" />
+                                    <Label x:Name="TxtEmail" />
+                                </StackLayout>
+                                <Label Text="Rol" VerticalOptions="Start"/>
+                                <StackLayout HeightRequest="35" WidthRequest="100" BackgroundColor="White" Margin="0,0,0,4">
+                                    <Label x:Name="TxtRol" />
+                                </StackLayout>
+                                <Label Text="Uid" VerticalOptions="Start"/>
+                                <StackLayout HeightRequest="35" WidthRequest="100" BackgroundColor="White" Margin="0,0,0,4">
+                                    <Label x:Name="TxtUid" />
                                 </StackLayout>
                             </StackLayout>
                         </StackLayout>

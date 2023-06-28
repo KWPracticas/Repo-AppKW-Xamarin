@@ -24,11 +24,22 @@ namespace AppKW.Views
             {
                 try
                 {
-                    FirebaseAuthLink result = await authenticationService.Login(TxtEmail.Text.Trim(), TxtPassword.Text.Trim());
+                    FirebaseAuthLink user = await authenticationService.Login(TxtEmail.Text.Trim(), TxtPassword.Text.Trim());
 
-                    if (result != null)
+                    if (user != null)
                     {
-                        await Shell.Current.GoToAsync($"//{nameof(Inicio)}");
+                        Models.User result = await authenticationService.GetUserFromRealTimeDatabase(user.User.LocalId);
+
+                        if (result != null)
+                        {
+                            await authenticationService.SaveUserInStorage(user);
+
+                            await authenticationService.SaveUserDataInStorage(result); // guardar datos del usuario en storage
+
+                            string role = await authenticationService.GetUserRoleInStorage();
+
+                            await Shell.Current.GoToAsync($"//{nameof(Inicio)}");
+                        }
                     } else
                     {
                         await DisplayAlert("Error", "El correo electrónico no se ha verificado, revisa tu bandeja de entrada o la bandeja de spam para validarlo", "Aceptar");

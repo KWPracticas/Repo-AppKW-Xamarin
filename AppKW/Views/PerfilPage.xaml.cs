@@ -1,22 +1,14 @@
-﻿using AppKW.ViewModels;
-using Newtonsoft.Json;
+﻿using AppKW.Services;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Http;
-using System.Text;
-using System.Threading.Tasks;
-using Xamarin.Essentials;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
-using User = AppKW.Models.User;
 
 namespace AppKW.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class PerfilPage : ContentPage
     {
-        UsuarioRepositorio _usuarioRepositorio = new UsuarioRepositorio();
+        AuthenticationService authenticationService = new AuthenticationService();
         public PerfilPage()
         {
             InitializeComponent();
@@ -25,25 +17,23 @@ namespace AppKW.Views
         protected override async void OnAppearing()
         {
             base.OnAppearing();
-            User user = await getUser();
-            TxtNombrePerfil.Text = user.name;
-            TxtApellidoPerfil.Text = user.lastname;
-            TxtcorreoPerfil.Text = user.email;
-        }
 
-        // Obtener datos del usuario desde firebase
-        private async Task<User> getUser()
-        {
-            string result = await _usuarioRepositorio.getDataUserWithFirebase();
+            Models.User userData = await authenticationService.GetUserDataFromStorage();
 
-            if (!string.IsNullOrEmpty(result))
+            if (userData != null)
             {
-                Dictionary<string,User> jsonObject = JsonConvert.DeserializeObject<Dictionary<string,User>>(result);
-                User user = jsonObject.Values.FirstOrDefault();
-                return user;
-            }
+                Console.WriteLine($"Name: {userData.name}");
+                Console.WriteLine($"Lastname: {userData.lastname}");
+                Console.WriteLine($"Email: {userData.email}");
+                Console.WriteLine($"Uid: {userData.uid}");
+                Console.WriteLine($"Role: {userData.role}");
 
-            return null;
+                TxtName.Text = userData.name;
+                TxtLastname.Text = userData.lastname;
+                TxtEmail.Text = userData.email;
+                TxtUid.Text = userData.uid;
+                TxtRol.Text = userData.role;
+            }
         }
     }
 }
