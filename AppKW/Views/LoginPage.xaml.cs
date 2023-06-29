@@ -38,6 +38,15 @@ namespace AppKW.Views
 
                             string role = await authenticationService.GetUserRoleInStorage();
 
+                            if (role == "Employee")
+                            {
+                                MessagingCenter.Send(this, "isEmployee");
+                            }
+                            else if (role == "Regular User")
+                            {
+                                MessagingCenter.Send(this, "isRegularUser");
+                            }
+
                             await Shell.Current.GoToAsync($"//{nameof(Inicio)}");
                         }
                     } else
