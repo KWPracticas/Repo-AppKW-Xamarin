@@ -1,4 +1,5 @@
-﻿using AppKW.Services;
+﻿using Acr.UserDialogs;
+using AppKW.Services;
 using Firebase.Auth;
 using System;
 using System.Threading.Tasks;
@@ -29,21 +30,26 @@ namespace AppKW.Views
 
                 try
                 {
+                    UserDialogs.Instance.ShowLoading("Cargando...");
                     FirebaseAuthLink newUser = await authenticationService.Register(email, password, name, lastname);
+                    UserDialogs.Instance.HideLoading();
                     await DisplayAlert(Title, "Usuario registrado correctamente, revisa tu email para validarlo", "Aceptar");
                     await Shell.Current.GoToAsync($"//{nameof(LoginPage)}");
                 } catch (Exception ex)
                 {
                     if (ex.Message.Contains("EMAIL_EXISTS"))
                     {
+                        UserDialogs.Instance.HideLoading();
                         await DisplayAlert("Error", "Ya existe una cuenta con ese correo electrónico", "Aceptar");
                     }
                     else if (ex.Message.Contains("INVALID_EMAIL"))
                     {
+                        UserDialogs.Instance.HideLoading();
                         await DisplayAlert("Error", "Correo electrónico invalido", "Aceptar");
                     }
                     else
                     {
+                        UserDialogs.Instance.HideLoading();
                         Console.WriteLine("Error register" + ex.Message);
                         await DisplayAlert("Error", "Algo salió mal, inténtalo más tarde", "Aceptar");
                     }
