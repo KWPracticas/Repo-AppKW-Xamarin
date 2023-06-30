@@ -6,7 +6,7 @@ namespace AppKW.Models
 {
     public class RegistroModel
     {
-        public string Id { get; set; }
+        public string Uid { get; set; }
         public string nombre { get; set; }
         public string apellido { get; set; }
         public string correo { get; set; }

@@ -8,7 +8,7 @@ namespace AppKW.ViewModels
     {
         public RefaccionesViewModel()
         {
-            Title = "Refacciones";
+            Title = "REFACCIONES";
         }
     }
 }

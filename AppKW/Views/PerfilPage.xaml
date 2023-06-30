@@ -12,22 +12,26 @@
                             <StackLayout>
                                 <Image Source="icon_usuario.png" WidthRequest="150" HeightRequest="150"  HorizontalOptions="Center"/>
                                 
-                                <Label Text="Nombre." VerticalOptions="Start"/>
+                                <Label Text="Nombre" VerticalOptions="Start"/>
                                 <StackLayout HeightRequest="35" WidthRequest="100" BackgroundColor="White" Margin="0,0,0,4">
-                                    <Label x:Name="TxtNombrePerfil" Text="Cristian" />
+                                    <Label x:Name="TxtName" />
                                 </StackLayout>
-                                <Label Text="Apellidos." VerticalOptions="Start"/>
+                                <Label Text="Apellidos" VerticalOptions="Start"/>
                                 <StackLayout HeightRequest="35" WidthRequest="100" BackgroundColor="White" Margin="0,0,0,4">
-                                    <Label x:Name="TxtApellidoPerfil" Text="López"/>
+                                    <Label x:Name="TxtLastname" />
                                 </StackLayout>
-                                <Label Text="Correo electronico." VerticalOptions="Start"/>
+                                <Label Text="Correo" VerticalOptions="Start"/>
                                 <StackLayout HeightRequest="35" WidthRequest="100" BackgroundColor="White" Margin="0,0,0,4">
-                                    <Label x:Name="TxtcorreoPerfil" Text="soporte.ti@kenworthdeleste.com.mx"/>
+                                    <Label x:Name="TxtEmail" />
                                 </StackLayout>
-
-                                <Button Text="✍" FontSize="37" WidthRequest="50" VerticalOptions="End" HorizontalOptions="End"/>
-
-
+                                <Label Text="Rol" VerticalOptions="Start"/>
+                                <StackLayout HeightRequest="35" WidthRequest="100" BackgroundColor="White" Margin="0,0,0,4">
+                                    <Label x:Name="TxtRol" />
+                                </StackLayout>
+                                <Label Text="Uid" VerticalOptions="Start"/>
+                                <StackLayout HeightRequest="35" WidthRequest="100" BackgroundColor="White" Margin="0,0,0,4">
+                                    <Label x:Name="TxtUid" />
+                                </StackLayout>
                             </StackLayout>
                         </StackLayout>
                     </ScrollView>
@@ -36,3 +40,4 @@
         </Grid>
     </ContentPage.Content>
 </ContentPage>
+    

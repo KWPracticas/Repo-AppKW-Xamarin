@@ -1,0 +1,89 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="AppKW.Views.Servicio"
+             Title="SERVICIO">
+    <ContentPage.Content>
+        <StackLayout>
+            <ScrollView>
+                <StackLayout>
+                    <StackLayout Padding="10" Margin="5">
+                        <Frame IsClippedToBounds="True"
+                                    HasShadow="True"
+                                    Padding="0"
+                                    BackgroundColor="White">
+
+                            <StackLayout HorizontalOptions="FillAndExpand" Orientation="Vertical" BackgroundColor="{StaticResource Second}">
+                                <Image  Source="img_servicio1" Aspect="Fill" HeightRequest="200" />
+                                <StackLayout HorizontalOptions="FillAndExpand" Orientation="Vertical" Padding="15">
+                                    <Label TextColor="White" 
+                                           FontSize="22" 
+                                           FontAttributes="Bold" 
+                                           Text="E n   V e n t a   P a r a d a"
+                                           FontFamily="Titulo"
+                                           HorizontalTextAlignment="Center"/>
+                                    <Label Text="Taller dedicado a servicios especializados en cuanto a diagnósticos de falla en motores Cummins y Caterpillar. Servicios de reparaciones mayores a motores como son: Ajustes de motor, reparación de transmisiones Fuller y Spicer, Reparaciones de diferenciales Dana y Meritor, Reparaciones de Embragues, etc. &#10;" 
+                                       FontFamily="Century Gothic"
+                                       FontSize="15"
+                                       HorizontalTextAlignment="Center"
+                                       Padding="5,5,5,5"
+                                       TextColor="White"/>
+                                </StackLayout>
+                            </StackLayout>
+                        </Frame>
+                    </StackLayout>
+                    <StackLayout Padding="10" Margin="5">
+                        <Frame IsClippedToBounds="True"
+                                    HasShadow="True"
+                                    Padding="0"
+                                    BackgroundColor="White">
+
+                            <StackLayout HorizontalOptions="FillAndExpand" Orientation="Vertical" BackgroundColor="#d02030">
+                                <Image  Source="img_servicio2" Aspect="Fill" HeightRequest="200" />
+                                <StackLayout HorizontalOptions="FillAndExpand" Orientation="Vertical" Padding="15">
+                                    <Label TextColor="White" 
+                                           FontSize="22" 
+                                           FontAttributes="Bold" 
+                                           Text="E n   V e r a c r u z" 
+                                           FontFamily="Titulo"
+                                           HorizontalTextAlignment="Center"/>
+                                    <Label Text="Servicios preventivos: servicios de lubricación básica, servicios de inspección por medio de herramienta electrónica así como también servicios correctivos como son: reparaciones mayores a motores Cummins y Cat, reparaciones de transmisiones Fuller y Spicer, Reparaciones de diferenciales Dana y Meritor, Reparaciones de Embragues, etc. Servicios a Domicilio para clientes foráneos.&#10;" 
+                                       FontFamily="Century Gothic"
+                                       FontSize="15"
+                                       HorizontalTextAlignment="Center"
+                                       Padding="5,5,5,5"
+                                       TextColor="White"/>
+                                </StackLayout>
+                            </StackLayout>
+                        </Frame>
+                    </StackLayout>
+                    <StackLayout Padding="10" Margin="5">
+                        <Frame IsClippedToBounds="True"
+                                    HasShadow="True"
+                                    Padding="0"
+                                    BackgroundColor="White">
+
+                            <StackLayout HorizontalOptions="FillAndExpand" Orientation="Vertical" BackgroundColor="{StaticResource Second}">
+                                <Image  Source="img_servicio3" Aspect="Fill" HeightRequest="200" />
+                                <StackLayout HorizontalOptions="FillAndExpand" Orientation="Vertical" Padding="15">
+                                    <Label TextColor="White" 
+                                           FontSize="22" 
+                                           FontAttributes="Bold" 
+                                           Text="R e s c a t e s   C a r r e t e r o s" 
+                                           FontFamily="Titulo"
+                                           HorizontalTextAlignment="Center"/>
+                                    <Label Text="Asistencia en carretera las 24 hrs los 365 días del año. Nuestros puntos son estratégicos con la finalidad de atender en el menor tiempo posible el auxilio carretero y la asistencia que nuestros clientes requieren, las zonas estratégicas de atención tanto la sucursal de córdoba como la sucursal de Veracruz. Lada sin costo: 800 536 37 83.&#10;" 
+                                       FontFamily="Century Gothic"
+                                       FontSize="15"
+                                       HorizontalTextAlignment="Center"
+                                       Padding="5,5,5,5"
+                                       TextColor="White"/>
+                                </StackLayout>
+                            </StackLayout>
+                        </Frame>
+                    </StackLayout>
+                </StackLayout>
+            </ScrollView>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

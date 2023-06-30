@@ -7,7 +7,7 @@ using Xamarin.Essentials;
 using Xamarin.Forms;
 using AppKW.Models;
 using Xamarin.Forms.Xaml;
-
+using AppKW.ViewModels;
 
 namespace AppKW.Views
 {
@@ -22,10 +22,9 @@ namespace AppKW.Views
             {
                 new CarouselModel(){Title = "img 1", Url = "img1.jpg"},
                 new CarouselModel(){Title = "img 2", Url = "img2.jpg"},
-                new CarouselModel(){Title = "img 3", Url = "img4.jpg"},
-                new CarouselModel(){Title = "img 3", Url = "img5.jpg"}
+                new CarouselModel(){Title = "img 3", Url = "img5.jpg"},
+                new CarouselModel(){Title = "img 4", Url = "img4.jpg"}
             };
-
 
             Carousel.ItemsSource = carousels;
 

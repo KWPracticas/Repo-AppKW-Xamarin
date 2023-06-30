@@ -1,0 +1,45 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="AppKW.Views.Carroceria"
+             Title="CARROCERÍA">
+    
+    <ContentPage.Content>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <StackLayout Background="#000">
+                <Image Source="img_Carroceria.jpg" Background="#FFF"/>
+            </StackLayout>
+            <ScrollView Grid.Row="1">
+                <StackLayout Orientation="Vertical" Padding="20,16,20,14" Spacing="2">
+                    <Label Text="En caso de un siniestro, Kenworth del Este S.A. de C.V. cuenta con taller de carrocería y pintura especializados en la reparación de vehículos colisionados." 
+                       FontSize="18" 
+                       FontFamily="Texto"
+                       Padding="0,0,0,0"
+                       HorizontalTextAlignment="Center"/>
+                    <Image Source="img_Carroceria2.png" Background="#FFF"/>
+                    <Label Text="BENEFICIOS" 
+                       FontSize="30"
+                       FontAttributes="Bold"
+                       TextColor="#d02030"
+                       FontFamily="Titulo"
+                       HorizontalTextAlignment="Center"/>
+                    <Label Text="Múltiples beneficios que puede obtener en nuestro servicio de carrocería de Kenworth del Este, para la reparación de sus vehículos colisionados:" 
+                       FontSize="11" 
+                       FontFamily="Texto"
+                       Padding="0,0,0,0"
+                       HorizontalTextAlignment="Center"/>
+                    <Label Text="° Uso de refacciones originales. &#10;&#10;° Contar con mano de obra especializada. &#10;&#10;° Conservar la garantía original y la de los componentes originales. &#10;&#10;° Asegurar la reparación integral de la unidad: carrocería, chasis, pintura, cristales y mecánica. &#10;&#10;° Mantener su valor de reventa. &#10;&#10;° Conservar su inversión y mantener su capital de trabajo en óptimas condiciones." 
+                       FontSize="18" 
+                       FontFamily="Texto"
+                       Padding="0,0,0,0"/>
+                    
+                </StackLayout>
+            </ScrollView>
+            
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

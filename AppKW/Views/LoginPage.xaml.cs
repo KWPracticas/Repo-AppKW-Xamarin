@@ -1,10 +1,7 @@
-﻿using AppKW.ViewModels;
-using Plugin.Toast;
-using Plugin.Toast.Abstractions;
+﻿using Acr.UserDialogs;
+using AppKW.Services;
+using Firebase.Auth;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using Xamarin.Essentials;
 using Xamarin.Forms;
@@ -15,84 +12,134 @@ namespace AppKW.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class LoginPage : ContentPage
     {
-        UsuarioRepositorio _usuarioRepositorio = new UsuarioRepositorio();
+        AuthenticationService authenticationService = new AuthenticationService();
         public LoginPage()
         {
             InitializeComponent();
-            this.BindingContext = new LoginViewModel();
+        }
+
+        protected override async void OnAppearing()
+        {
+            base.OnAppearing();
+            string email = await SecureStorage.GetAsync("email");
+            string password = await SecureStorage.GetAsync("password");
+
+            if (!string.IsNullOrEmpty(email) && !string.IsNullOrEmpty(password))
+            {
+                TxtEmail.Text = email;
+                TxtPassword.Text = password;
+            } else
+            {
+                TxtEmail.Text = string.Empty;
+                TxtPassword.Text = string.Empty;
+            }
         }
 
         public async void BtnSignIn_Clicked(object sender, EventArgs e)
         {
-            try
+            bool isValid = await validateLogin(TxtEmail.Text, TxtPassword.Text);
+            if (isValid)
             {
-                string correo = TxtEmail.Text.Trim();
-                string contrasena = TxtPassword.Text.Trim();
-                if (String.IsNullOrEmpty(correo))
+                try
                 {
-                    await DisplayAlert("Advertencia", "introduce tu correo", "Ok");
-                    return;
-                }
-                if (String.IsNullOrEmpty(contrasena))
-                {
-                    await DisplayAlert("Advertencia", "Introduce tu contraseña", "Ok");
-                    return;
-                }
+                    UserDialogs.Instance.ShowLoading("Cargando...");
+                    FirebaseAuthLink user = await authenticationService.Login(TxtEmail.Text.Trim(), TxtPassword.Text.Trim());
 
-                
-                //Validación de logueo exitoso
-                string token = await _usuarioRepositorio.SignIn(correo.Trim(), contrasena.Trim());
-                
-                await SecureStorage.SetAsync("token", token);
-                
-                if (!string.IsNullOrEmpty(token))
-                {
-                    //Validar tipo de usuario 
-                    string role = await SecureStorage.GetAsync("role");
-                    MessagingCenter.Send<LoginPage>(this,
-                        (role == "User") ? "User" : "invitado"
-                    );
-                    MessagingCenter.Send<LoginPage>(this,
-                        (role == "Employee") ? "Employee" : "User"
-                    );
-                    Console.WriteLine("role: " + role);
-                    //Redireccionar al Home
-                    await Shell.Current.GoToAsync($"//{nameof(Inicio)}");
-                }
-                else
-                {
-                    await DisplayAlert("Inicio de sesión", "Fallo el inicio de sesión", "Ok");
-                }
-                
-            }
-            catch(Exception exception) 
-            {
-                if (exception.Message.Contains("EMAIL_NOT_FOUND"))
-                {
-                    await DisplayAlert("No autorizado", "Correo no existente", "Ok");
+                    if (user != null)
+                    {
+                        Models.User result = await authenticationService.GetUserFromRealTimeDatabase(user.User.LocalId);
 
-                }
-                else if(exception.Message.Contains("INVALID_PASSWORD"))
+                        if (result != null)
+                        {
+                            if (Recordar.IsChecked)
+                            {
+                                await SecureStorage.SetAsync("email", TxtEmail.Text.Trim());
+                                await SecureStorage.SetAsync("password", TxtPassword.Text.Trim());
+                            } else
+                            {
+                                SecureStorage.Remove("email");
+                                SecureStorage.Remove("password");
+                            }
+
+                            await authenticationService.SaveUserInStorage(user);
+
+                            await authenticationService.SaveUserDataInStorage(result); // guardar datos del usuario en storage
+
+                            string role = await authenticationService.GetUserRoleInStorage();
+
+                            if (role == "Employee")
+                            {
+                                MessagingCenter.Send(this, "isEmployee");
+                            }
+                            else if (role == "Regular User")
+                            {
+                                MessagingCenter.Send(this, "isRegularUser");
+                            }
+
+                            await Shell.Current.GoToAsync($"//{nameof(Inicio)}");
+                            UserDialogs.Instance.HideLoading();
+                        }
+                    } else
+                    {
+                        UserDialogs.Instance.HideLoading();
+                        await DisplayAlert("Error", "El correo electrónico no se ha verificado, revisa tu bandeja de entrada o la bandeja de spam para validarlo", "Aceptar");
+                    }
+                } catch(Exception ex)
                 {
-                    await DisplayAlert("No autorizado", "Contraseña incorrecta", "Ok");
-                }
-                else
-                {
-                    await DisplayAlert("Error", exception.Message, "Ok");
+                    if (ex.Message.Contains("EMAIL_NOT_FOUND"))
+                    {
+                        UserDialogs.Instance.HideLoading();
+                        await DisplayAlert("Error", "No pudimos encontrar tu cuenta", "Aceptar");
+                    }
+                    else if (ex.Message.Contains("INVALID_PASSWORD"))
+                    {
+                        UserDialogs.Instance.HideLoading();
+                        await DisplayAlert("Error", "La contraseña es incorrecta. Vuelve a intentarlo o haz clic en \"¿Olvidaste la contraseña?\" para restablecerla.\r\n", "Aceptar");
+                    }
+                    else if (ex.Message.Contains("INVALID_EMAIL"))
+                    {
+                        UserDialogs.Instance.HideLoading();
+                        await DisplayAlert("Error", "Ingresa un correo electrónico válido", "Aceptar");
+                    }
+                    else
+                    {
+                        Console.WriteLine(ex.Message);
+                        UserDialogs.Instance.HideLoading();
+                        await DisplayAlert("Error", "Algo salió mal, inténtalo más tarde", "Aceptar");
+                    }
                 }
             }
-            
         }
-        //Metodo que direcciona a el registro desde el login
         public async void RegisterTap_Tapped(object sender, EventArgs e)
         {
             await Navigation.PushModalAsync(new Registro());
         }
-
-        //Metodo de recuperar contraseña 
         public async void ForgotTap_Tapped(object sender, EventArgs e)
         {
             await Navigation.PushModalAsync(new RecuperarContrasenaPage());
+        }
+
+        private async Task<bool> validateLogin(string email, string password)
+        {
+            if (string.IsNullOrEmpty(email))
+            {
+                await DisplayAlert("Error", "Ingresa una dirección de correo electrónico", "Aceptar");
+                return false;
+            }
+
+            if (string.IsNullOrEmpty(password))
+            {
+                await DisplayAlert("Error", "Ingresa una contraseña", "Aceptar");
+                return false;
+            }
+
+            if (password.Length < 8)
+            {
+                await DisplayAlert("Error", "La contraseña debe ser igual o mayor a 8 caracteres", "Aceptar");
+                return false;
+            }
+
+            return true;
         }
     }
 }

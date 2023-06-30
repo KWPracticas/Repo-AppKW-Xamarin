@@ -9,7 +9,7 @@
     <Shell.BindingContext>
         <vm:ShellViewModel/>
     </Shell.BindingContext>
-    
+
     <!--
         The overall app visual hierarchy is defined here, along with navigation.
     
@@ -37,7 +37,7 @@
             https://docs.microsoft.com/xamarin/xamarin-forms/app-fundamentals/shell/flyout#flyoutitem-and-menuitem-style-classes
             -->
             <Style Class="FlyoutItemLabelStyle" TargetType="Label">
-                <Setter Property="TextColor" Value="{StaticResource Second}"></Setter>
+                <Setter Property="TextColor" Value="#FFFFFF"></Setter>
             </Style>
             <Style Class="FlyoutItemLayoutStyle" TargetType="Layout" ApplyToDerivedTypes="True">
                 <Setter Property="VisualStateManager.VisualStateGroups">
@@ -83,103 +83,47 @@
         FlyoutDisplayOptions="AsMultipleItems" will create a separate flyout item for each child element    
         https://docs.microsoft.com/dotnet/api/xamarin.forms.shellgroupitem.flyoutdisplayoptions?view=xamarin-forms
     -->
-    
-    
-    <ShellItem Route="StartPage" FlyoutItemIsVisible="False">
-        <ShellContent ContentTemplate="{DataTemplate local:StartPage}"></ShellContent>
-    </ShellItem>
-
-    <FlyoutItem Title="Inicio" FlyoutIcon="icon_home" IsVisible="{Binding IsInvitado}">
-        <ShellContent Route="Inicio" ContentTemplate="{DataTemplate local:Inicio}" />
-    </FlyoutItem>
-
-    <!-- Usuarios Invitado -->
-    <FlyoutItem Title="Unidades" Icon="icon_units" IsVisible="{Binding IsInvitado}">
-        <ShellContent Route="UnidadesPage" ContentTemplate="{DataTemplate local:Unidades}" />
-    </FlyoutItem>
-
-    <FlyoutItem Title="Sucursales" Icon="icon_location.png" IsVisible="{Binding IsInvitado}">
-        <ShellContent Route="SucursalesoPage" ContentTemplate="{DataTemplate local:SucursalesPage}"/>
-    </FlyoutItem>
-
-    <FlyoutItem Title="Contacto" Icon="icon_contact.png" IsVisible="{Binding IsInvitado}">
-        <ShellContent Route="ContactoPage" ContentTemplate="{DataTemplate local:Contacto}"/>
-    </FlyoutItem>
-
-    <FlyoutItem Title="Buzon" Icon="icon_mailbox.png" IsVisible="{Binding IsInvitado}">
-        <ShellContent Route="BuzonPage" ContentTemplate="{DataTemplate local:Buzon}" />
-    </FlyoutItem>
-
-    <!-- Usuarios Con Registro -->
-    <FlyoutItem Title="Refacciones" Icon="icon_refacciones.png" IsVisible="{Binding IsUser}">
-        <ShellContent Route="RefaccionesPage" ContentTemplate="{DataTemplate local:RefaccionesPage}" />
-    </FlyoutItem>
-    <FlyoutItem Title="Carroceria" Icon="icon_carroceria.png" IsVisible="{Binding IsUser}">
-        <ShellContent Route="BuzonPage" ContentTemplate="{DataTemplate local:RefaccionesPage}" />
-    </FlyoutItem>
-    <FlyoutItem Title="Servicio" Icon="icon_servicio.png" IsVisible="{Binding IsUser}">
-        <ShellContent Route="BuzonPage" ContentTemplate="{DataTemplate local:RefaccionesPage}" />
-    </FlyoutItem>
-    <FlyoutItem Title="Promociones" Icon="icon_promocion.png" IsVisible="{Binding IsUser}">
-        <ShellContent Route="BuzonPage" ContentTemplate="{DataTemplate local:RefaccionesPage}" />
-    </FlyoutItem>
-    
-    <!-- Usuarios Empleados -->
-    <FlyoutItem Title="Mi Perfil" Icon="icon_perfil.png" IsVisible="{Binding IsEmployee}">
-        <ShellContent Route="PerfilPage"  ContentTemplate="{DataTemplate local:PerfilPage}"/>
-    </FlyoutItem>
-    <FlyoutItem Title="Encuestas" Icon="icon_encuestas.png" IsVisible="{Binding IsEmployee}">
-        <ShellContent Route="EmployeesPage"  ContentTemplate="{DataTemplate local:EmployeesPage}"/>
-    </FlyoutItem>
 
 
+    <TabBar>
+        <ShellContent Route="StartPage" ContentTemplate="{DataTemplate local:StartPage}" />
+    </TabBar>
 
-    <!-- When the Flyout is visible this will be a menu item you can tie a click behavior to  -->
-    <!-- <MenuItem Text="Logout" StyleClass="MenuItemLayoutStyle" Clicked="OnMenuItemClicked">
-    </MenuItem> -->
-
-    <!--
-        TabBar lets you define content that won't show up in a flyout menu. When this content is active
-        the flyout menu won't be available. This is useful for creating areas of the application where 
-        you don't want users to be able to navigate away from. If you would like to navigate to this 
-        content you can do so by calling 
-        await Shell.Current.GoToAsync("//LoginPage");
-    -->
     <TabBar>
         <ShellContent Route="LoginPage" ContentTemplate="{DataTemplate local:LoginPage}" />
     </TabBar>
 
-    <!-- Optional Templates 
-    // These may be provided inline as below or as separate classes.
+    <FlyoutItem Title="Inicio" Icon="icon_home.png">
+        <ShellContent Route="Inicio" ContentTemplate="{DataTemplate local:Inicio}" />
+    </FlyoutItem>
 
-    // This header appears at the top of the Flyout.
-    // https://docs.microsoft.com/xamarin/xamarin-forms/app-fundamentals/shell/flyout#flyout-header
-    <Shell.FlyoutHeaderTemplate>
-        <DataTemplate>
-            <Grid>ContentHere</Grid>
-        </DataTemplate>
-    </Shell.FlyoutHeaderTemplate>
+    <!--REGULAR USER-->
+    <FlyoutItem FlyoutDisplayOptions="AsMultipleItems" Shell.TabBarIsVisible="False" IsVisible="{Binding IsRegularUser}">
+        <ShellContent Title="Perfil" Icon="icon_perfil.png" Route="Perfil" ContentTemplate="{DataTemplate local:PerfilPage}" />
+        <ShellContent Title="Unidades" Icon="icon_units.png" Route="Unidades" ContentTemplate="{DataTemplate local:Unidades}" />
+        <ShellContent Title="Sucursales" Icon="icon_location.png" Route="Sucursales" ContentTemplate="{DataTemplate local:SucursalesPage}" />
+        <ShellContent Title="Contacto" Icon="icon_contact.png" Route="Contacto" ContentTemplate="{DataTemplate local:Contacto}" />
+        <ShellContent Title="Buzón" Icon="icon_mailbox.png" Route="Buzon" ContentTemplate="{DataTemplate local:Buzon}" />
+        <ShellContent Title="Refacciones" Icon="icon_refacciones.png" Route="Refacciones" ContentTemplate="{DataTemplate local:RefaccionesPage}" />
+        <ShellContent Title="Carrocería" Icon="icon_carroceria.png" Route="Carroceria" ContentTemplate="{DataTemplate local:Carroceria}" />
+        <ShellContent Title="Servicio" Icon="icon_servicio.png" Route="Servicio" ContentTemplate="{DataTemplate local:Servicio}" />
+        <ShellContent Title="Promociones" Icon="icon_promocion.png" Route="Promociones" ContentTemplate="{DataTemplate local:Promociones}" />
+    </FlyoutItem>
+    
+    <!--EMPLOYEE-->
+    <FlyoutItem FlyoutDisplayOptions="AsMultipleItems" Shell.TabBarIsVisible="False" IsVisible="{Binding IsEmployee}">
+        <ShellContent Title="Perfil" Icon="icon_perfil.png" Route="Perfil" ContentTemplate="{DataTemplate local:PerfilPage}" />
+        <ShellContent Title="Encuestas" Icon="icon_encuestas.png" Route="Encuestas" ContentTemplate="{DataTemplate local:EncuestasPage}" />
+    </FlyoutItem>
+    
+    <!--GUEST-->
+    <FlyoutItem FlyoutDisplayOptions="AsMultipleItems" Shell.TabBarIsVisible="False" IsVisible="{Binding IsGuest}">
+        <ShellContent Title="Unidades" Icon="icon_units.png" Route="Unidades" ContentTemplate="{DataTemplate local:Unidades}" />
+        <ShellContent Title="Sucursales" Icon="icon_location.png" Route="Sucursales" ContentTemplate="{DataTemplate local:SucursalesPage}" />
+        <ShellContent Title="Contacto" Icon="icon_contact.png" Route="Contacto" ContentTemplate="{DataTemplate local:Contacto}" />
+        <ShellContent Title="Buzón" Icon="icon_mailbox.png" Route="Buzon" ContentTemplate="{DataTemplate local:Buzon}" />
+    </FlyoutItem>
 
-    // ItemTemplate is for ShellItems as displayed in a Flyout
-    // https://docs.microsoft.com/xamarin/xamarin-forms/app-fundamentals/shell/flyout#define-flyoutitem-appearance
-    <Shell.ItemTemplate>
-        <DataTemplate>
-            <ContentView>
-                Bindable Properties: Title, Icon
-            </ContentView>
-        </DataTemplate>
-    </Shell.ItemTemplate>
-
-    // MenuItemTemplate is for MenuItems as displayed in a Flyout
-    // https://docs.microsoft.com/xamarin/xamarin-forms/app-fundamentals/shell/flyout#define-menuitem-appearance
-    <Shell.MenuItemTemplate>
-        <DataTemplate>
-            <ContentView>
-                Bindable Properties: Text, Icon
-            </ContentView>
-        </DataTemplate>
-    </Shell.MenuItemTemplate>
-
-    -->
-
+    <MenuItem Text="{Binding IsTitle}" IconImageSource="{Binding Icon}" StyleClass="MenuItemLayoutStyle" Clicked="OnMenuItemClicked">
+    </MenuItem>
 </Shell>

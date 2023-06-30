@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+﻿using AppKW.Services;
+using System;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -12,24 +8,43 @@ namespace AppKW.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class StartPage : ContentPage
     {
+        AuthenticationService authenticationService = new AuthenticationService();
         public StartPage()
         {
             InitializeComponent();
         }
 
-        private async void Login_Button_Clicked(object sender, EventArgs e)
+        private async void Login(object sender, EventArgs e)
         {
-            await Navigation.PushAsync(new LoginPage());
+            await Navigation.PushModalAsync(new LoginPage());
         }
 
-        private async void Register_Button_Clicked(object sender, EventArgs e)
+        private async void Register(object sender, EventArgs e)
         {
-            await Navigation.PushAsync(new Registro());
+            await Navigation.PushModalAsync(new Registro());
         }
 
-        private async void Guest_Button_Clicked(object sender, EventArgs e)
+        private async void Guest(object sender, EventArgs e)
         {
-            await Shell.Current.GoToAsync($"//{nameof(Inicio)}");
+            try
+            {
+                await authenticationService.LoginAsAGuest();
+
+                string role = await authenticationService.GetUserRoleInStorage();
+
+                if (role != null && role == "Guest")
+                {
+                    MessagingCenter.Send(this, "isGuest");
+                    await Shell.Current.GoToAsync($"//{nameof(Inicio)}");
+                } else
+                {
+                    await DisplayAlert("Error", "Algo salió mal, inténtalo más tarde", "Aceptar");
+                }
+            }
+            catch (Exception)
+            {
+                await DisplayAlert("Error", "Algo salió mal, inténtalo más tarde", "Aceptar");
+            }
         }
     }
 }

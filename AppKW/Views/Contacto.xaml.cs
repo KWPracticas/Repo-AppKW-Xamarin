@@ -82,7 +82,7 @@ namespace AppKW.Views
                 }
 
 
-                Uri uri = new Uri("http://192.168.1.64:8000/api/contact");
+                Uri uri = new Uri("https://api.kenworthdeleste.com.mx/api/contact");
                 var client = new HttpClient();
                 var json = JsonConvert.SerializeObject(contactForm);
                 var contentJson = new StringContent(json, Encoding.UTF8, "application/json");

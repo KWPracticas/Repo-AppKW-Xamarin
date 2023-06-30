@@ -11,7 +11,7 @@ namespace AppKW.ViewModels
     {
 		public SucursalesViewModel ()
 		{
-            Title = "Sucursales";
+            Title = "SUCURSALES";
         }
 	}
 }

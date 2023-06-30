@@ -5,6 +5,7 @@ using Android.Content.PM;
 using Android.Runtime;
 using Android.OS;
 using Forms.BackgroundVideo.AndroidCore;
+using Acr.UserDialogs;
 
 namespace AppKW.Droid
 {
@@ -20,6 +21,7 @@ namespace AppKW.Droid
 
             Xamarin.Essentials.Platform.Init(this, savedInstanceState);
             global::Xamarin.Forms.Forms.Init(this, savedInstanceState);
+            UserDialogs.Init(this);
             LoadApplication(new App());
             Window.SetStatusBarColor(Android.Graphics.Color.Rgb(208, 32, 48));
         }

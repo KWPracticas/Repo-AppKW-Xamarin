@@ -1,41 +1,86 @@
 ﻿using AppKW.Views;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using Xamarin.Forms;
 
 namespace AppKW.ViewModels
 {
     public class ShellViewModel : BaseViewModel
     {
-        private bool isEmployee;
-        private bool isUser;
-        private bool isInvitado;
+        public bool isRegularUser;
+        public bool isEmployee;
+        public bool isGuest;
 
+        public string isTitle;
+        public string icon;
+
+        public bool IsRegularUser { get => isRegularUser; set => SetProperty(ref isRegularUser, value); }
         public bool IsEmployee { get => isEmployee; set => SetProperty(ref isEmployee, value); }
-        public bool IsInvitado { get => isInvitado; set => SetProperty(ref isInvitado, value); }
-        public bool IsUser { get => isUser; set => SetProperty(ref isUser, value); }
+        public bool IsGuest { get => isGuest; set => SetProperty(ref isGuest, value); }
 
-        public ShellViewModel()
+        public string IsTitle { get => isTitle; set => SetProperty(ref isTitle, value); }
+        public string Icon { get => icon; set => SetProperty(ref icon, value); }
+
+        public ShellViewModel() 
         {
-            MessagingCenter.Subscribe<LoginPage>(this, "Employee", (sender) =>
+            MessagingCenter.Subscribe<LoginPage>(this, "isRegularUser", (sender) =>
+            {
+                IsRegularUser = true;
+                IsEmployee = false;
+                IsGuest = false;
+
+                IsTitle = "Cerrar sesión";
+                Icon = "logout.png";
+            });
+
+            MessagingCenter.Subscribe<LoginPage>(this, "isEmployee", (sender) =>
             {
                 IsEmployee = true;
-                IsInvitado = false;
-                IsUser = false;
-            });
-            MessagingCenter.Subscribe<LoginPage>(this, "User", (sender) =>
-            { //Listo Logueo user
-                IsUser = true;
-                IsInvitado = true;
-            });
-            MessagingCenter.Subscribe<AppShell>(this, "invitado", (sender) =>
-            {
-                IsInvitado = true;
-                IsUser = false;
-                IsEmployee = false;
+                IsRegularUser = false;
+                IsGuest = false;
+
+                IsTitle = "Cerrar sesión";
+                Icon = "logout.png";
             });
 
+            MessagingCenter.Subscribe<StartPage>(this, "isGuest", (sender) =>
+            {
+                IsGuest = true;
+                IsRegularUser = false;
+                IsEmployee = false;
+
+                IsTitle = "Iniciar sesión";
+                Icon = "login.png";
+            });
+
+            //App
+            MessagingCenter.Subscribe<App>(this, "isRegularUser", (sender) =>
+            {
+                IsRegularUser = true;
+                IsEmployee = false;
+                IsGuest = false;
+
+                IsTitle = "Cerrar sesión";
+                Icon = "logout.png";
+            });
+
+            MessagingCenter.Subscribe<App>(this, "isEmployee", (sender) =>
+            {
+                IsEmployee = true;
+                IsRegularUser = false;
+                IsGuest = false;
+
+                IsTitle = "Cerrar sesión";
+                Icon = "logout.png";
+            });
+
+            MessagingCenter.Subscribe<App>(this, "isGuest", (sender) =>
+            {
+                IsGuest = true;
+                IsRegularUser = false;
+                IsEmployee = false;
+
+                IsTitle = "Iniciar sesión";
+                Icon = "login.png";
+            });
         }
     }
 }

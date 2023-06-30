@@ -12,7 +12,7 @@ namespace AppKW.ViewModels
     {
         public InicioViewModel()
         {
-            Title = "Inicio";
+            Title = "INICIO";
         }
         
     }

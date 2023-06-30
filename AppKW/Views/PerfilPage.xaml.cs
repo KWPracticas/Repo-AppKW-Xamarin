@@ -1,45 +1,39 @@
-﻿using AppKW.Models;
-using AppKW.ViewModels;
+﻿using AppKW.Services;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
-using static Android.Media.Session.MediaSession;
 
 namespace AppKW.Views
 {
-	[XamlCompilation(XamlCompilationOptions.Compile)]
-	public partial class PerfilPage : ContentPage
-	{
-        UsuarioRepositorio _usuarioRepositorio = new UsuarioRepositorio();
+    [XamlCompilation(XamlCompilationOptions.Compile)]
+    public partial class PerfilPage : ContentPage
+    {
+        AuthenticationService authenticationService = new AuthenticationService();
         public PerfilPage()
-		{
-			InitializeComponent();
-		}
-
-       /* public async void Editar(string id)
         {
-            var usuario = await _usuarioRepositorio.GetById(id);
-            if (usuario == null)
-            {
-                await DisplayAlert("Warning", "Data not found.", "Ok");
-            }
-            usuario.Id = id;
-            usuario.nombre = TxtNombrePerfil.Text;
-
-        } */
-
-
-
-        public async void BtnSignIn_Clicked(object sender, EventArgs e)
-        {
-            await DisplayAlert("Warning", "Data not found.", "Ok");
+            InitializeComponent();
         }
-            
 
+        protected override async void OnAppearing()
+        {
+            base.OnAppearing();
+
+            Models.User userData = await authenticationService.GetUserDataFromStorage();
+
+            if (userData != null)
+            {
+                Console.WriteLine($"Name: {userData.name}");
+                Console.WriteLine($"Lastname: {userData.lastname}");
+                Console.WriteLine($"Email: {userData.email}");
+                Console.WriteLine($"Uid: {userData.uid}");
+                Console.WriteLine($"Role: {userData.role}");
+
+                TxtName.Text = userData.name;
+                TxtLastname.Text = userData.lastname;
+                TxtEmail.Text = userData.email;
+                TxtUid.Text = userData.uid;
+                TxtRol.Text = userData.role;
+            }
+        }
     }
 }

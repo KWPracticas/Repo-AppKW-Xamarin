@@ -8,7 +8,7 @@ namespace AppKW.ViewModels
     {
         public UnidadesViewModel()
         {
-            Title = "Unidades";
+            Title = "UNIDADES";
         }
     }
 }
