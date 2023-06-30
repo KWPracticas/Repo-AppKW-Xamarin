@@ -19791,43 +19791,46 @@ namespace AppKW.Droid
 			public const int refacciones = 2131165429;
 			
 			// aapt resource value: 0x7F0700F6
-			public const int test_custom_background = 2131165430;
+			public const int register = 2131165430;
 			
 			// aapt resource value: 0x7F0700F7
-			public const int tiktok = 2131165431;
+			public const int test_custom_background = 2131165431;
 			
 			// aapt resource value: 0x7F0700F8
-			public const int tooltip_frame_dark = 2131165432;
+			public const int tiktok = 2131165432;
 			
 			// aapt resource value: 0x7F0700F9
-			public const int tooltip_frame_light = 2131165433;
+			public const int tooltip_frame_dark = 2131165433;
 			
 			// aapt resource value: 0x7F0700FA
-			public const int twitter = 2131165434;
+			public const int tooltip_frame_light = 2131165434;
 			
 			// aapt resource value: 0x7F0700FB
-			public const int un1 = 2131165435;
+			public const int twitter = 2131165435;
 			
 			// aapt resource value: 0x7F0700FC
-			public const int unidad_KW45_55 = 2131165436;
+			public const int un1 = 2131165436;
 			
 			// aapt resource value: 0x7F0700FD
-			public const int unidad_T380 = 2131165437;
+			public const int unidad_KW45_55 = 2131165437;
 			
 			// aapt resource value: 0x7F0700FE
-			public const int unidad_T680 = 2131165438;
+			public const int unidad_T380 = 2131165438;
 			
 			// aapt resource value: 0x7F0700FF
-			public const int video_fondo = 2131165439;
+			public const int unidad_T680 = 2131165439;
 			
 			// aapt resource value: 0x7F070100
-			public const int vision = 2131165440;
+			public const int video_fondo = 2131165440;
 			
 			// aapt resource value: 0x7F070101
-			public const int xamarin_logo = 2131165441;
+			public const int vision = 2131165441;
 			
 			// aapt resource value: 0x7F070102
-			public const int youtube = 2131165442;
+			public const int xamarin_logo = 2131165442;
+			
+			// aapt resource value: 0x7F070103
+			public const int youtube = 2131165443;
 			
 			static Drawable()
 			{

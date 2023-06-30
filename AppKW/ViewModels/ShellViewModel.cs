@@ -50,6 +50,37 @@ namespace AppKW.ViewModels
                 IsTitle = "Iniciar sesión";
                 Icon = "login.png";
             });
+
+            //App
+            MessagingCenter.Subscribe<App>(this, "isRegularUser", (sender) =>
+            {
+                IsRegularUser = true;
+                IsEmployee = false;
+                IsGuest = false;
+
+                IsTitle = "Cerrar sesión";
+                Icon = "logout.png";
+            });
+
+            MessagingCenter.Subscribe<App>(this, "isEmployee", (sender) =>
+            {
+                IsEmployee = true;
+                IsRegularUser = false;
+                IsGuest = false;
+
+                IsTitle = "Cerrar sesión";
+                Icon = "logout.png";
+            });
+
+            MessagingCenter.Subscribe<App>(this, "isGuest", (sender) =>
+            {
+                IsGuest = true;
+                IsRegularUser = false;
+                IsEmployee = false;
+
+                IsTitle = "Iniciar sesión";
+                Icon = "login.png";
+            });
         }
     }
 }
