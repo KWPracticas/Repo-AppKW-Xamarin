@@ -1,4 +1,6 @@
-﻿using AppKW.ViewModels;
+﻿using Acr.UserDialogs;
+using AppKW.Services;
+using AppKW.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,39 +9,49 @@ using System.Threading.Tasks;
 
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
+using static Android.Provider.Telephony;
 
 namespace AppKW.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class RecuperarContrasenaPage : ContentPage
     {
-        UsuarioRepositorio _usuarioRepositorio = new UsuarioRepositorio();
+        AuthenticationService authenticationService = new AuthenticationService();
         public RecuperarContrasenaPage()
         {
             InitializeComponent();
         }
 
-        public async void Button_SendLink(object sender, EventArgs e)
+        public async void BtnSendLink(object sender, EventArgs e)
         {
-            string correo = TxtEmail.Text;
-            if (string.IsNullOrEmpty(correo))
+            if (string.IsNullOrEmpty(TxtEmail.Text))
             {
-                await DisplayAlert("Mensaje", "Por favor introdusca correo electronico valido", "Ok");
+                await DisplayAlert("Error", "Escribe un correo electrónico valido", "Aceptar");
                 return;
             }
 
             try
             {
-                await _usuarioRepositorio.resetPassword(correo.Trim());
-                await DisplayAlert("Restaurar Contraseña", "Se envio elance a correo electronico para recuperar contraseña", "Listo");
-                Clear();
+                UserDialogs.Instance.ShowLoading("Cargando...");
+                await authenticationService.ResetPassword(TxtEmail.Text.Trim());
+                UserDialogs.Instance.HideLoading();
+                await DisplayAlert("Correcto", "Se envió un correo para poder restablecer tu contraseña, revisa tu bandeja de entrada o spam", "Aceptar");
+                ClearForm();
             } catch (Exception ex)
             {
-                await DisplayAlert("Restaurar coontraseña", "El link fallo", "Ok");
+                if (ex.Message.Contains("INVALID_EMAIL"))
+                {
+                    UserDialogs.Instance.HideLoading();
+                    await DisplayAlert("Error", "Ingresa un correo electrónico válido", "Aceptar");
+                } else
+                {
+                    UserDialogs.Instance.HideLoading();
+                    await DisplayAlert("Error", "Algo salió mal, inténtalo más tarde", "Aceptar");
+                }
             }
         }
 
-        public void Clear()
+        private void ClearForm()
         {
             TxtEmail.Text = string.Empty;
         }

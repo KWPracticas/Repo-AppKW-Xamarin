@@ -28,7 +28,7 @@
                     <Button Text="E N V I A R    L I N K" 
                                 Margin="0,15,0,0" 
                                 x:Name="ButtonSendLink"
-                                Clicked="Button_SendLink"
+                                Clicked="BtnSendLink"
                                 BackgroundColor="#d02030"
                                 TextColor="White" 
                                 FontAttributes="Bold" 

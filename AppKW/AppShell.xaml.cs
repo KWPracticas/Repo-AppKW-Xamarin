@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Acr.UserDialogs;
+using System;
 using Xamarin.Essentials;
 using Xamarin.Forms;
 
@@ -13,6 +14,7 @@ namespace AppKW
 
         private async void OnMenuItemClicked(object sender, EventArgs e)
         {
+            UserDialogs.Instance.ShowLoading("Cargando...");
             bool isRemoveUser = SecureStorage.Remove("user");
             bool isRemoveUserData = SecureStorage.Remove("userData");
 
@@ -22,6 +24,7 @@ namespace AppKW
             }
 
             await Shell.Current.GoToAsync("//LoginPage");
+            UserDialogs.Instance.HideLoading();
         }
     }
 }

@@ -159,5 +159,10 @@ namespace AppKW.Services
                 return null;
             }
         }
+
+        public async Task ResetPassword(string email)
+        {
+            await firebaseAuthProvider.SendPasswordResetEmailAsync(email);
+        }
     }
 }
