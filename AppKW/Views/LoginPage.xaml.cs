@@ -17,6 +17,23 @@ namespace AppKW.Views
             InitializeComponent();
         }
 
+        protected override async void OnAppearing()
+        {
+            base.OnAppearing();
+            string email = await SecureStorage.GetAsync("email");
+            string password = await SecureStorage.GetAsync("password");
+
+            if (!string.IsNullOrEmpty(email) && !string.IsNullOrEmpty(password))
+            {
+                TxtEmail.Text = email;
+                TxtPassword.Text = password;
+            } else
+            {
+                TxtEmail.Text = string.Empty;
+                TxtPassword.Text = string.Empty;
+            }
+        }
+
         public async void BtnSignIn_Clicked(object sender, EventArgs e)
         {
             bool isValid = await validateLogin(TxtEmail.Text, TxtPassword.Text);
@@ -32,6 +49,16 @@ namespace AppKW.Views
 
                         if (result != null)
                         {
+                            if (Recordar.IsChecked)
+                            {
+                                await SecureStorage.SetAsync("email", TxtEmail.Text.Trim());
+                                await SecureStorage.SetAsync("password", TxtPassword.Text.Trim());
+                            } else
+                            {
+                                SecureStorage.Remove("email");
+                                SecureStorage.Remove("password");
+                            }
+
                             await authenticationService.SaveUserInStorage(user);
 
                             await authenticationService.SaveUserDataInStorage(result); // guardar datos del usuario en storage

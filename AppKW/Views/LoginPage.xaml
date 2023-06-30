@@ -57,7 +57,7 @@
                                 </Frame>
                             </StackLayout>
                             <StackLayout Orientation="Horizontal" Margin="0,14,0,10">
-                                <CheckBox x:Name="Recordar" IsChecked="false" Color="#e91018 "/>
+                                <CheckBox x:Name="Recordar" IsChecked="True" Color="#e91018" />
                                 <Label Text="Recordar" HorizontalTextAlignment="Start" TextColor="#000000" VerticalTextAlignment="Center"/>
 
                                 <Label Text="¿Olvidó su password?" 
