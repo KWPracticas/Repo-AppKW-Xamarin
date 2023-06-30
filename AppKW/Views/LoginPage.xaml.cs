@@ -1,4 +1,5 @@
-﻿using AppKW.Services;
+﻿using Acr.UserDialogs;
+using AppKW.Services;
 using Firebase.Auth;
 using System;
 using System.Threading.Tasks;
@@ -41,6 +42,7 @@ namespace AppKW.Views
             {
                 try
                 {
+                    UserDialogs.Instance.ShowLoading("Cargando...");
                     FirebaseAuthLink user = await authenticationService.Login(TxtEmail.Text.Trim(), TxtPassword.Text.Trim());
 
                     if (user != null)
@@ -75,28 +77,34 @@ namespace AppKW.Views
                             }
 
                             await Shell.Current.GoToAsync($"//{nameof(Inicio)}");
+                            UserDialogs.Instance.HideLoading();
                         }
                     } else
                     {
+                        UserDialogs.Instance.HideLoading();
                         await DisplayAlert("Error", "El correo electrónico no se ha verificado, revisa tu bandeja de entrada o la bandeja de spam para validarlo", "Aceptar");
                     }
                 } catch(Exception ex)
                 {
                     if (ex.Message.Contains("EMAIL_NOT_FOUND"))
                     {
+                        UserDialogs.Instance.HideLoading();
                         await DisplayAlert("Error", "No pudimos encontrar tu cuenta", "Aceptar");
                     }
                     else if (ex.Message.Contains("INVALID_PASSWORD"))
                     {
+                        UserDialogs.Instance.HideLoading();
                         await DisplayAlert("Error", "La contraseña es incorrecta. Vuelve a intentarlo o haz clic en \"¿Olvidaste la contraseña?\" para restablecerla.\r\n", "Aceptar");
                     }
                     else if (ex.Message.Contains("INVALID_EMAIL"))
                     {
+                        UserDialogs.Instance.HideLoading();
                         await DisplayAlert("Error", "Ingresa un correo electrónico válido", "Aceptar");
                     }
                     else
                     {
                         Console.WriteLine(ex.Message);
+                        UserDialogs.Instance.HideLoading();
                         await DisplayAlert("Error", "Algo salió mal, inténtalo más tarde", "Aceptar");
                     }
                 }
