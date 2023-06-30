@@ -115,4 +115,12 @@
         <ShellContent Title="Perfil" Icon="icon_perfil.png" Route="Perfil" ContentTemplate="{DataTemplate local:PerfilPage}" />
         <ShellContent Title="Encuestas" Icon="icon_encuestas.png" Route="Encuestas" ContentTemplate="{DataTemplate local:EncuestasPage}" />
     </FlyoutItem>
+    
+    <!--GUEST-->
+    <FlyoutItem FlyoutDisplayOptions="AsMultipleItems" Shell.TabBarIsVisible="False" IsVisible="{Binding IsGuest}">
+        <ShellContent Title="Unidades" Icon="icon_units.png" Route="Unidades" ContentTemplate="{DataTemplate local:Unidades}" />
+        <ShellContent Title="Sucursales" Icon="icon_location.png" Route="Sucursales" ContentTemplate="{DataTemplate local:SucursalesPage}" />
+        <ShellContent Title="Contacto" Icon="icon_contact.png" Route="Contacto" ContentTemplate="{DataTemplate local:Contacto}" />
+        <ShellContent Title="Buzón" Icon="icon_mailbox.png" Route="Buzon" ContentTemplate="{DataTemplate local:Buzon}" />
+    </FlyoutItem>
 </Shell>

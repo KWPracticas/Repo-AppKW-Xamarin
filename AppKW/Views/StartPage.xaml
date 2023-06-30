@@ -14,7 +14,7 @@
                 <StackLayout Padding="10,0,10,0" VerticalOptions="Center" BackgroundColor="Transparent">
                     <Button VerticalOptions="Center" Text="Iniciar sesión" Clicked="Login"/>
                     <Button VerticalOptions="Center" Text="Registrarse" BackgroundColor="#E74C3C" Clicked="Register"/>
-                    <Button VerticalOptions="Center" Text="Invitado" BackgroundColor="#95A5A6"/>
+                    <Button VerticalOptions="Center" Text="Invitado" BackgroundColor="#95A5A6" Clicked="Guest"/>
                 </StackLayout>
             </controls:BackgroundVideoView.ViewContent>
         </controls:BackgroundVideoView>
