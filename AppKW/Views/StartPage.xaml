@@ -8,7 +8,7 @@
              >
     <ContentPage.Content>
 
-        <controls:BackgroundVideoView Source="video_fondo.mp4" Loop="True"
+        <controls:BackgroundVideoView Source="video.mp4" Loop="True"
                         HorizontalOptions="Fill" VerticalOptions="Fill" >
             <controls:BackgroundVideoView.ViewContent>
                 <StackLayout Padding="10,0,10,0" VerticalOptions="Center" BackgroundColor="Transparent">

@@ -22492,16 +22492,13 @@ namespace AppKW.Droid
 			public const int unidad_T680 = 2131165443;
 			
 			// aapt resource value: 0x7F070104
-			public const int video_fondo = 2131165444;
+			public const int vision = 2131165444;
 			
 			// aapt resource value: 0x7F070105
-			public const int vision = 2131165445;
+			public const int xamarin_logo = 2131165445;
 			
 			// aapt resource value: 0x7F070106
-			public const int xamarin_logo = 2131165446;
-			
-			// aapt resource value: 0x7F070107
-			public const int youtube = 2131165447;
+			public const int youtube = 2131165446;
 			
 			static Drawable()
 			{

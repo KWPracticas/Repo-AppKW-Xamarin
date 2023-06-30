@@ -171,9 +171,6 @@
     <AndroidResource Include="Resources\drawable\logo_recontrasena.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable\video_fondo.mp4" />
-  </ItemGroup>
-  <ItemGroup>
     <AndroidResource Include="Resources\drawable\unidad_KW45_55.png" />
   </ItemGroup>
   <ItemGroup>
@@ -340,6 +337,9 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\register.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidAsset Include="Assets\video.mp4" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
 </Project>
