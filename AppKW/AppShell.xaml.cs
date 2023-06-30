@@ -1,4 +1,5 @@
 ﻿using System;
+using Xamarin.Essentials;
 using Xamarin.Forms;
 
 namespace AppKW
@@ -12,6 +13,14 @@ namespace AppKW
 
         private async void OnMenuItemClicked(object sender, EventArgs e)
         {
+            bool isRemoveUser = SecureStorage.Remove("user");
+            bool isRemoveUserData = SecureStorage.Remove("userData");
+
+            if (!isRemoveUser || !isRemoveUserData)
+            {
+                return;
+            }
+
             await Shell.Current.GoToAsync("//LoginPage");
         }
     }

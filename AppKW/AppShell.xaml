@@ -123,4 +123,7 @@
         <ShellContent Title="Contacto" Icon="icon_contact.png" Route="Contacto" ContentTemplate="{DataTemplate local:Contacto}" />
         <ShellContent Title="Buzón" Icon="icon_mailbox.png" Route="Buzon" ContentTemplate="{DataTemplate local:Buzon}" />
     </FlyoutItem>
+
+    <MenuItem Text="Cerrar Sesión" StyleClass="MenuItemLayoutStyle" Clicked="OnMenuItemClicked">
+    </MenuItem>
 </Shell>
